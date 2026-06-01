@@ -1,0 +1,9 @@
+{
+  "name": "proposals-site-upgrade",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "build": "mkdir -p .next && cp -r *.html ai public .next/ 2>/dev/null || true && mkdir -p .next/dist && cp -r *.html ai .next/dist/ 2>/dev/null || true",
+    "vercel-build": "mkdir -p dist && cp index.html dist/ && cp -r ai dist/ 2>/dev/null || true"
+  }
+}
