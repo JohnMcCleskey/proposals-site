@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "framework": null,
+  "buildCommand": "mkdir -p dist && cp index.html dist/ && cp -r ai dist/",
+  "outputDirectory": "dist",
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "^/ai/?$", "dest": "/ai/index.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ],
+  "cleanUrls": true
+}
