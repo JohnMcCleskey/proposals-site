@@ -27,14 +27,20 @@ export default function LandSubmissionForm({ onClose }: { onClose?: () => void }
   if (submitted) {
     return (
       <div className="land-form-success">
-        <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-        <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fff", marginBottom: 8 }>
-          Submission received!
-        </h3>
-        <p style={{ fontSize: 15, color: "#777", lineHeight: 1.6 }>
-          Thanks for sending your property details. We are actively looking for land across Georgia
-          in secondary and smaller markets. We will be in touch within 24 hours.
+        <div className="land-form-check" aria-hidden="true">
+          ✓
+        </div>
+        <h3>Submission received</h3>
+        <p>
+          Your parcel goes into LandLens for scoring tonight. We buy across
+          Georgia with a focus on secondary and smaller markets, and a human
+          will come back to you within 24 hours either way.
         </p>
+        {onClose && (
+          <button type="button" onClick={onClose} className="btn-secondary">
+            Close
+          </button>
+        )}
       </div>
     );
   }
@@ -43,7 +49,11 @@ export default function LandSubmissionForm({ onClose }: { onClose?: () => void }
     <form className="land-form" onSubmit={handleSubmit}>
       <div className="land-form-header">
         <h3>Sell Your Land in Georgia</h3>
-        <p>We are actively buying land across Georgia — focusing on secondary and smaller markets. Tell us what you have.</p>
+        <p>
+          Tell us what you have. LandLens scores it against zoning, access, and
+          utility layers, and a person reviews the result before anyone contacts
+          you.
+        </p>
       </div>
 
       <div className="form-row">
@@ -177,12 +187,12 @@ export default function LandSubmissionForm({ onClose }: { onClose?: () => void }
         onChange={handleChange}
       />
 
-      <button type="submit" className="btn-primary btn-lg" style={{ width: "100%", marginTop: 8 }>
+      <button type="submit" className="btn-primary btn-lg btn-block land-form-submit">
         Submit My Property →
       </button>
 
       {onClose && (
-        <button type="button" onClick={onClose} className="btn-text" style={{ marginTop: 12 }>
+        <button type="button" onClick={onClose} className="btn-text land-form-cancel">
           Cancel
         </button>
       )}
