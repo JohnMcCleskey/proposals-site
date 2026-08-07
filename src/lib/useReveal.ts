@@ -3,35 +3,38 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Fades an element in the first time it enters the viewport.
- * `delay` staggers siblings so grids arrive as a wave rather than a slab.
- * Elements start visible in markup and are hidden from JS, so anything
- * rendered without JS (or before hydration) still reads normally.
+ * Adds .rv-in when the element enters the viewport. Pure transform/opacity,
+ * runs once, respects prefers-reduced-motion (CSS side shows content
+ * immediately, so the observer is skipped entirely).
  */
-export function useReveal<T extends HTMLElement = HTMLDivElement>(delay = 0) {
-  const ref = useRef<T>(null);
+export function useReveal<T extends HTMLElement>(delay = 0) {
+  const ref = useRef<T | null>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    el.style.transitionDelay = `${delay}ms`;
-    el.classList.add("reveal-hidden");
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        el.classList.add("reveal-visible");
-        el.classList.remove("reveal-hidden");
-        obs.disconnect();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.classList.add("rv-in");
+      return;
+    }
+    let t: number | undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            t = window.setTimeout(() => el.classList.add("rv-in"), delay);
+            io.disconnect();
+            return;
+          }
+        }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -48px 0px" }
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
     );
-
-    obs.observe(el);
-    return () => obs.disconnect();
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (t !== undefined) window.clearTimeout(t);
+    };
   }, [delay]);
 
   return ref;

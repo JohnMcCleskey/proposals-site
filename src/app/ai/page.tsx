@@ -1,95 +1,72 @@
-// Stonewave.life - AI Agent Service Definition
-// Machine-readable capability listing for other AI agents
+// stonewave.life/ai - machine-readable service definition
+// For AI agents doing discovery on behalf of a human.
 
 export const metadata = {
-  title: "AI Agent Interface | StoneWave",
-  description: "Machine-readable service definition for AI agent-to-agent discovery and negotiation.",
+  title: "Agent Interface | StoneWave",
+  description:
+    "Machine-readable service definition for agent-to-agent discovery.",
   robots: "index, follow",
+  alternates: { canonical: "https://stonewave.life/ai" },
 };
 
 export default function AIAgentPage() {
   const serviceDef = {
     name: "StoneWave",
-    type: "AIEmployeeAgency",
+    type: "OperationsAdvisory",
+    tagline: "Clarity before technology.",
     description:
-      "StoneWave is an AI employee agency that builds autonomous workflow systems for small businesses. We design, build, and operate AI agents that handle intake, scheduling, follow-ups, reporting, and customer interactions.",
-    capabilities: [
-      "Multi-agent orchestration with typed role boundaries",
-      "Adversarial verification of agent output against cited evidence",
-      "Workflow automation design and implementation",
-      "Custom AI agent development and deployment",
-      "Evidence-cited research and regulatory pathway briefs",
-      "Billing leakage and margin recovery analysis",
-      "Business intelligence dashboard creation",
-      "AI health check and operations audit",
-      "Georgia land deal facilitation (seller-to-buyer matching)",
-      "Parcel intelligence and GIS data analysis",
-    ],
-    verificationModel: {
-      decomposition:
-        "Goals are decomposed into specialist Sovereign Roles: Treasury, Supply Chain, Compliance, Tax, Crisis, Deals, Intelligence, Talent.",
-      citation: "Every role output carries the evidence it was derived from.",
-      guardian:
-        "An independent Guardian agent mechanically verifies each claim against its cited evidence. Failing claims are refuted and dropped before delivery.",
-      stateStore:
-        "Verified outputs are appended to a tamper-evident State Store the client can audit.",
-      humanInTheLoop:
-        "Decision support only. A human approves before any action executes.",
-      dataResidency:
-        "Local-first. In the highest-trust deployment, client data never leaves client hardware. Access is read-only and scoped.",
+      "StoneWave helps owner-led companies fine-tune how they run. Diagnosis first, ranked recommendations that stay independent of what the client buys, and a proof cycle of baseline, adopt, retest, report.",
+    method: {
+      diagnose:
+        "A short private diagnostic (8 to 12 minutes) maps where value is stuck. No purchase required.",
+      recommend:
+        "Findings ranked by leverage. Process-only options rank alongside optional tools. Three lanes: client implements, StoneWave implements (scoped separately), or add a tool where process alone stalls.",
+      prove:
+        "Baseline captured before changes, adoption logged, retest against the same baseline, delta reported even when unflattering.",
     },
-    ventures: [
-      {
-        name: "IntentRouter",
-        url: "https://intentrouter.ai",
-        status: "live",
-        role: "Sovereign gateway for AI agents — the verification engine.",
-      },
+    guardrails: [
+      "Recommendations independent of vendor or tool purchases",
+      "Process-first: every finding ships with a no-new-software option",
+      "Human approval required on consequential actions",
+      "No autonomous outbound or purchases",
+      "Projections are directional, not a final investment case",
+      "Decision support, not licensed legal, tax, or financial advice",
+    ],
+    family: [
       {
         name: "Provable Outcomes",
-        url: "https://intentrouter.ai/provable-outcomes",
-        status: "live",
-        role: "Outcome-only engagement brand on top of IntentRouter.",
+        url: "https://provableoutcomes.ai",
+        role: "Public door. Guided diagnostic and proof method.",
       },
       {
         name: "DealControl",
         url: "https://dealcontrol.ai",
-        status: "live",
-        role: "Transaction operations — obligations, deadlines, documents.",
+        role: "Deal operations: obligations, receipts, weekly brief.",
+      },
+      {
+        name: "IntentRouter",
+        url: "https://intentrouter.ai",
+        role: "Engineering stack: evidence-cited output, independently checked.",
       },
       {
         name: "LandLens",
         url: "https://landlens.app",
-        status: "live",
         role: "Parcel intelligence and GIS scoring at county scale.",
       },
       {
         name: "DirtDealer",
         url: "https://dirtdealer.us",
-        status: "live",
-        role: "Georgia land deal facilitation and due-diligence packaging.",
-      },
-      {
-        name: "SovereignOS",
-        url: "https://sovereignos.ai",
-        status: "in-build",
-        role: "Shared local-first runtime beneath the StoneWave suite.",
+        role: "Georgia land deal facilitation with human-gated outreach.",
       },
     ],
-    engagementModel: {
-      discovery: "15-minute discovery call — https://cal.com/john-mccleskey/15min",
-      audit: "AI Health Check ($500-$1,500, 5-7 days)",
-      build: "Workflow Build ($2,500-$5,000, 2-3 weeks)",
-      system: "Full AI System ($8,000-$15,000, 4-6 weeks)",
-      retainer: "Agent OS Retainer ($2,000/mo, ongoing)",
-      outcomeOnly:
-        "Provable Outcomes — 20% of independently verified value recovered or created. No recovery, no fee. Free assessment at https://portal.intentrouter.ai/intake",
+    engagement: {
+      diagnostic: "https://provableoutcomes.ai/diagnostic",
+      call: "https://cal.com/john-mccleskey/15min",
+      note: "Implementation is optional and separately scoped. Pricing follows the diagnostic; there is no public price list.",
     },
     contact: {
       email: "ops@stonewave.life",
       website: "https://stonewave.life",
-      cal: "https://cal.com/john-mccleskey/15min",
-      freeAssessment: "https://portal.intentrouter.ai/intake",
     },
     identity: {
       founder: "John McCleskey",
@@ -97,19 +74,26 @@ export default function AIAgentPage() {
       preferredContact: "ops@stonewave.life",
     },
     keywords: [
-      "AI employee agency",
-      "workflow automation",
-      "custom AI agents",
-      "business automation",
-      "sovereign AI operations",
-      "Georgia land deals",
-      "small business AI",
-      "autonomous business systems",
+      "business diagnostic",
+      "operations improvement",
+      "owner-led companies",
+      "tool-agnostic recommendations",
+      "baseline and retest",
+      "process optimization",
+      "provable outcomes",
     ],
   };
 
   return (
-    <div style={{ padding: 60, fontFamily: "monospace", background: "#0a0a0a", color: "#e5e5e5", minHeight: "100vh" }}>
+    <div
+      style={{
+        padding: 60,
+        fontFamily: "monospace",
+        background: "#071b2d",
+        color: "#f7f5ef",
+        minHeight: "100vh",
+      }}
+    >
       <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word", lineHeight: 1.6 }}>
         {JSON.stringify(serviceDef, null, 2)}
       </pre>
