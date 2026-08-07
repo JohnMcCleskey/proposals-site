@@ -4,18 +4,19 @@ import { useReveal } from "@/lib/useReveal";
 
 export default function Reveal({
   children,
+  className = "",
   delay = 0,
-  className,
   as: Tag = "div",
 }: {
   children: React.ReactNode;
-  delay?: number;
   className?: string;
-  as?: "div" | "section";
+  delay?: number;
+  as?: "div" | "section" | "li" | "figure";
 }) {
   const ref = useReveal<HTMLDivElement>(delay);
   return (
-    <Tag ref={ref} className={className}>
+    // @ts-expect-error dynamic tag shares the div ref shape we need
+    <Tag ref={ref} className={`rv ${className}`}>
       {children}
     </Tag>
   );
