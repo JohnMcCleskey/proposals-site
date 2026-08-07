@@ -123,6 +123,22 @@ body {
   border-top: 1px solid rgba(7, 27, 45, 0.12);
 }
 
+/* ————————————————————————————————— CSS entrance (no-JS safe) */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise-in 0.85s var(--ease-swift) both;
+  animation-delay: var(--d, 0s);
+}
+
 /* ————————————————————————————————— reveal primitives (JS-driven) */
 .rv {
   opacity: 0;
@@ -154,10 +170,6 @@ body {
   opacity: 0;
   pointer-events: none;
 }
-.scene.scene-active {
-  pointer-events: auto;
-}
-
 /* reduced-motion + no-JS storyboard fallback stacks scenes vertically */
 .storyboard-static .scene {
   position: relative;

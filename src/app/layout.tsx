@@ -117,6 +117,9 @@ export default function RootLayout({
             }),
           }}
         />
+        <noscript>
+          <style>{`.rv{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
       </head>
       <body>{children}</body>
     </html>

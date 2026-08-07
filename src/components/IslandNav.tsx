@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Wordmark from "@/components/Wordmark";
 import { CAL_URL, DIAGNOSTIC_URL, NAV_ITEMS } from "@/lib/site";
@@ -9,6 +9,8 @@ export default function IslandNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const reduced = useReducedMotion();
+  const toggleRef = useRef<HTMLButtonElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -22,9 +24,12 @@ export default function IslandNav() {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    // Move focus into the menu; hand it back to the toggle on close.
+    panelRef.current?.querySelector("a")?.focus();
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      toggleRef.current?.focus();
     };
   }, [open]);
 
@@ -92,11 +97,12 @@ export default function IslandNav() {
               href={DIAGNOSTIC_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full bg-ember px-4 py-2 text-[0.88rem] font-medium text-paper-bright transition-colors duration-300 hover:bg-ember-deep sm:block"
+              className="hidden rounded-full bg-ember px-4 py-2 text-[0.88rem] font-medium text-ink transition-colors duration-300 hover:bg-ember-bright sm:block"
             >
               Start the diagnostic
             </a>
             <button
+              ref={toggleRef}
               type="button"
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
@@ -139,6 +145,7 @@ export default function IslandNav() {
           >
             <div className="island absolute inset-0 bg-ink/70" />
             <motion.div
+              ref={panelRef}
               initial={reduced ? false : { y: -16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
@@ -161,7 +168,7 @@ export default function IslandNav() {
                   href={DIAGNOSTIC_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-2xl bg-ember px-4 py-3.5 text-center font-medium text-paper-bright"
+                  className="rounded-2xl bg-ember px-4 py-3.5 text-center font-medium text-ink"
                 >
                   Start the diagnostic
                 </a>

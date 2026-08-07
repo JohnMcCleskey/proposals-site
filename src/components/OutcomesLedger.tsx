@@ -52,9 +52,14 @@ const FULL_HOLD_MS = 6500;
 
 export default function OutcomesLedger() {
   const reduced = useReducedMotion();
-  const [stage, setStage] = useState(reduced ? 3 : 0);
+  // Starts at 0 on server and client alike (hydration-safe); the effect
+  // jumps straight to the full ledger when motion is reduced.
+  const [stage, setStage] = useState(0);
   const [paused, setPaused] = useState(false);
   const timer = useRef<number | null>(null);
+  // Once the visitor interacts deliberately (click or keyboard focus),
+  // the cycle stays paused for good: WCAG 2.2.2 pause semantics.
+  const settled = useRef(false);
 
   useEffect(() => {
     if (reduced) {
@@ -77,7 +82,13 @@ export default function OutcomesLedger() {
     <div
       className="bezel w-full max-w-[34rem] p-5 shadow-lift sm:p-6"
       onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
+      onPointerLeave={() => {
+        if (!settled.current) setPaused(false);
+      }}
+      onFocusCapture={() => {
+        settled.current = true;
+        setPaused(true);
+      }}
     >
       {/* header */}
       <div className="flex items-center justify-between gap-3">
@@ -89,22 +100,24 @@ export default function OutcomesLedger() {
 
       {/* stage stepper */}
       <div
-        role="tablist"
+        role="group"
         aria-label="Proof cycle stage"
         className="mt-4 grid grid-cols-4 gap-1 rounded-full border border-ink/10 bg-paper p-1"
       >
         {STAGES.map((s, i) => (
           <button
             key={s}
-            role="tab"
-            aria-selected={stage === i}
-            onClick={() => setStage(i)}
+            type="button"
+            aria-pressed={stage === i}
+            onClick={() => {
+              settled.current = true;
+              setPaused(true);
+              setStage(i);
+            }}
             className={`rounded-full px-1 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.08em] transition-colors duration-300 sm:text-[0.66rem] ${
               stage === i
                 ? "bg-ink text-paper"
-                : active(i)
-                  ? "text-ink hover:bg-ink/[0.06]"
-                  : "text-ink-mute/70 hover:bg-ink/[0.04]"
+                : "text-ink-mute hover:bg-ink/[0.06] hover:text-ink"
             }`}
           >
             {s}
@@ -166,6 +179,7 @@ function Cell({
 }) {
   return (
     <div
+      aria-hidden={!on}
       className={`min-w-0 transition-all duration-500 ease-swift ${
         on ? "translate-y-0 opacity-100" : "translate-y-1.5 opacity-[0.18]"
       }`}

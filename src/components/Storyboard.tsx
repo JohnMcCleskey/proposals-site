@@ -70,7 +70,7 @@ function VignetteDiagnostic() {
     <div className="w-full max-w-[22rem]">
       <El>
         <div className="bezel-ink p-5">
-          <p className="eyebrow text-paper/45">Diagnostic · 4 of 11</p>
+          <p className="eyebrow text-paper/60">Diagnostic · 4 of 11</p>
           <p className="mt-3 text-[1.02rem] leading-snug text-paper">
             When a new job comes in, where does it land first?
           </p>
@@ -93,7 +93,7 @@ function VignetteDiagnostic() {
         </div>
       </El>
       <El>
-        <p className="mt-3 text-center font-mono text-[0.68rem] uppercase tracking-[0.14em] text-paper/40">
+        <p className="mt-3 text-center font-mono text-[0.68rem] uppercase tracking-[0.14em] text-paper/60">
           8 to 12 minutes · private · no purchase
         </p>
       </El>
@@ -110,7 +110,7 @@ function VignetteBrief() {
   return (
     <div className="w-full max-w-[24rem]">
       <El>
-        <p className="eyebrow mb-3 text-paper/45">Opportunity brief · ranked</p>
+        <p className="eyebrow mb-3 text-paper/60">Opportunity brief · ranked</p>
       </El>
       <div className="space-y-2.5">
         {findings.map((f) => (
@@ -180,7 +180,7 @@ function VignetteAdoption() {
   return (
     <div className="w-full max-w-[22rem]">
       <El>
-        <p className="eyebrow mb-3 text-paper/45">Adoption log · week 3</p>
+        <p className="eyebrow mb-3 text-paper/60">Adoption log · week 3</p>
       </El>
       <div className="space-y-2.5">
         {items.map((t) => (
@@ -222,8 +222,8 @@ function VignetteRetest() {
     <div className="w-full max-w-[24rem]">
       <El>
         <div className="mb-2.5 flex items-center justify-between">
-          <p className="eyebrow text-paper/45">Retest vs baseline</p>
-          <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-paper/40">
+          <p className="eyebrow text-paper/60">Retest vs baseline</p>
+          <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-paper/60">
             Illustrative scenario
           </p>
         </div>
@@ -237,7 +237,7 @@ function VignetteRetest() {
               }`}
             >
               <span className="text-[0.82rem] text-paper/80">{r.m}</span>
-              <span className="ledger-num text-[0.8rem] text-paper/45">
+              <span className="ledger-num text-[0.8rem] text-paper/60">
                 {r.b}
               </span>
               <span aria-hidden="true" className="text-paper/35">&rarr;</span>
@@ -261,8 +261,8 @@ function VignetteApproval() {
       <El>
         <div className="bezel-ink p-5">
           <div className="flex items-center justify-between">
-            <p className="eyebrow text-paper/45">Awaiting review</p>
-            <span className="rounded-md bg-ember/20 px-2 py-0.5 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-ember">
+            <p className="eyebrow text-paper/60">Awaiting review</p>
+            <span className="rounded-md bg-ember/25 px-2 py-0.5 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-paper/85">
               Draft
             </span>
           </div>
@@ -287,8 +287,11 @@ function VignetteApproval() {
         </div>
       </El>
       <El>
-        <p className="mt-3 text-center text-[0.8rem] text-paper/50">
+        <p className="mt-3 text-center text-[0.8rem] text-paper/55">
           Nothing sends itself. A person signs off, every time.
+        </p>
+        <p className="mt-1.5 text-center font-mono text-[0.6rem] uppercase tracking-[0.12em] text-paper/60">
+          Illustrative example
         </p>
       </El>
     </div>
@@ -297,7 +300,7 @@ function VignetteApproval() {
 
 function VignettePayoff() {
   const wins = [
-    { k: "6+ hrs", v: "back in the owner's week" },
+    { k: "4+ hrs", v: "back in the owner's week" },
     { k: "1 page", v: "of proof for a partner or board" },
     { k: "0 tools", v: "bought before they earned their place" },
   ];
@@ -314,7 +317,7 @@ function VignettePayoff() {
         </El>
       ))}
       <El>
-        <p className="pt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.12em] text-paper/40">
+        <p className="pt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.12em] text-paper/60">
           Illustrative scenario
         </p>
       </El>
@@ -338,7 +341,7 @@ const BEATS: Beat[] = [
     label: "The diagnostic",
     title: "A quiet look under the hood.",
     line:
-      "Twelve minutes of plain questions about how work actually moves. Private, and nothing to buy at the end.",
+      "Eight to twelve minutes of plain questions about how work actually moves. Private, and nothing to buy at the end.",
     visual: <VignetteDiagnostic />,
   },
   {
@@ -459,11 +462,11 @@ export default function Storyboard() {
             const els = scene.querySelectorAll(".sb-el");
 
             if (i === 0) {
-              gsap.set(scene, { autoAlpha: 1 });
+              gsap.set(scene, { opacity: 1 });
               tl.fromTo(
                 els,
-                { autoAlpha: 0, y: 26 },
-                { autoAlpha: 1, y: 0, stagger: 0.14, duration: 0.7 },
+                { opacity: 0, y: 26 },
+                { opacity: 1, y: 0, stagger: 0.14, duration: 0.7 },
                 pos,
               );
             } else {
@@ -471,21 +474,21 @@ export default function Storyboard() {
               // is never empty mid-scroll.
               tl.fromTo(
                 scene,
-                { autoAlpha: 0, y: 46, scale: 0.985 },
-                { autoAlpha: 1, y: 0, scale: 1, duration: 0.8 },
+                { opacity: 0, y: 46, scale: 0.985 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.8 },
                 pos - 0.35,
               );
               tl.fromTo(
                 els,
-                { autoAlpha: 0, y: 26 },
-                { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.6 },
+                { opacity: 0, y: 26 },
+                { opacity: 1, y: 0, stagger: 0.12, duration: 0.6 },
                 pos - 0.1,
               );
             }
             if (i < scenes.length - 1) {
               tl.to(
                 scene,
-                { autoAlpha: 0, y: -42, scale: 0.99, duration: 0.55 },
+                { opacity: 0, y: -42, scale: 0.99, duration: 0.55 },
                 pos + SCENE - 0.55,
               );
             }
@@ -557,7 +560,7 @@ export default function Storyboard() {
                 <div className="grid w-full items-center gap-6 px-5 py-8 sm:gap-8 sm:px-8 sm:py-12 md:grid-cols-2 md:gap-14">
                   <div className="order-2 md:order-1">
                     <El>
-                      <p className="eyebrow flex items-center gap-2.5 text-paper/45">
+                      <p className="eyebrow flex items-center gap-2.5 text-paper/60">
                         <span className="ledger-num text-ember">
                           0{i + 1}
                         </span>
@@ -588,7 +591,7 @@ export default function Storyboard() {
       {/* prose alternative, always present */}
       <div className="relative border-t border-paper/10">
         <div className="mx-auto w-full max-w-wrap px-5 py-8 sm:px-8">
-          <p className="eyebrow mb-3 text-paper/40">The story in one paragraph</p>
+          <p className="eyebrow mb-3 text-paper/55">The story in one paragraph</p>
           <p className="max-w-[62ch] text-[0.9rem] leading-relaxed text-paper/55">
             Work gets stuck in handoffs. A short private diagnostic maps where.
             You get a brief with findings ranked by leverage, and

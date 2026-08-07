@@ -49,7 +49,7 @@ export default function MagneticButton({
     "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[0.95rem] font-medium transition-colors duration-300 ease-swift select-none";
   const variants: Record<string, string> = {
     primary:
-      "bg-ember text-paper-bright hover:bg-ember-deep shadow-[0_2px_14px_rgba(215,113,37,0.35)]",
+      "bg-ember text-ink hover:bg-ember-bright shadow-[0_2px_14px_rgba(215,113,37,0.35)]",
     ghost:
       "border border-ink/20 text-ink hover:border-ink/45 hover:bg-ink/[0.04]",
     paper:

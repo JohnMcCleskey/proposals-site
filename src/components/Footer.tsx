@@ -35,7 +35,7 @@ export default function Footer() {
                     className="group text-[0.92rem] text-ink/75 transition-colors hover:text-ink"
                   >
                     {f.name}{" "}
-                    <span className="ledger-num text-[0.75rem] text-ink-mute transition-colors group-hover:text-ember">
+                    <span className="ledger-num text-[0.75rem] text-ink-mute transition-colors group-hover:text-ember-ink">
                       {f.host} &#8599;
                     </span>
                   </a>

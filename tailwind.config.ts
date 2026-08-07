@@ -27,7 +27,9 @@ const config: Config = {
         },
         ember: {
           DEFAULT: "#d77125", // PO orange
+          bright: "#e07f35",
           deep: "#b85c15",
+          ink: "#ad560f", // AA-compliant ember for text on paper (4.68:1)
           wash: "#f9e9db",
         },
         proof: {

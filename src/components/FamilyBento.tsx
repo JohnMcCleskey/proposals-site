@@ -11,7 +11,7 @@ export default function FamilyBento() {
     <section id="family" className="bg-paper" aria-label="The StoneWave family">
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-28">
         <Reveal>
-          <p className="eyebrow text-ember">Built and running</p>
+          <p className="eyebrow text-ember-ink">Built and running</p>
           <h2 className="font-display mt-4 max-w-[24ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.5rem]">
             One family. Every link goes somewhere real.
           </h2>
@@ -46,7 +46,7 @@ export default function FamilyBento() {
                       {f.role}
                     </span>
                   </div>
-                  <span className="ledger-num flex items-center gap-1.5 text-[0.78rem] text-ink-mute transition-colors duration-300 group-hover:text-ember">
+                  <span className="ledger-num flex items-center gap-1.5 text-[0.78rem] text-ink-mute transition-colors duration-300 group-hover:text-ember-ink">
                     {f.host}
                     {!f.here && (
                       <span

@@ -39,7 +39,7 @@ export default function Guardrails() {
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-24">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal>
-            <p className="eyebrow text-ember">Guardrails</p>
+            <p className="eyebrow text-ember-ink">Guardrails</p>
             <h2 className="font-display mt-4 max-w-[16ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.4rem]">
               The lines we hold, in writing.
             </h2>
@@ -53,7 +53,7 @@ export default function Guardrails() {
           <ol className="divide-y divide-ink/[0.08] border-y border-ink/[0.08]">
             {GUARDRAILS.map((g, i) => (
               <Reveal key={g.rule} as="li" delay={i * 60} className="flex gap-5 py-5">
-                <span className="ledger-num pt-0.5 text-[0.78rem] text-ink-mute/70">
+                <span className="ledger-num pt-0.5 text-[0.78rem] text-ink-mute">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>

@@ -24,7 +24,7 @@ export default function WhoItsFor() {
     <section className="bg-paper-bright" aria-label="Who it is for">
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-24">
         <Reveal>
-          <p className="eyebrow text-ember">Who it fits</p>
+          <p className="eyebrow text-ember-ink">Who it fits</p>
           <h2 className="font-display mt-4 max-w-[26ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.5rem]">
             Built for people who must defend their decisions.
           </h2>

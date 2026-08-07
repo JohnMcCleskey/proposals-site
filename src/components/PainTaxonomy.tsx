@@ -44,7 +44,7 @@ export default function PainTaxonomy() {
     <section className="bg-paper" aria-label="Where value gets stuck">
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-28">
         <Reveal>
-          <p className="eyebrow text-ember">The patterns</p>
+          <p className="eyebrow text-ember-ink">The patterns</p>
           <h2 className="font-display mt-4 max-w-[22ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.5rem]">
             Where value gets stuck has names.
           </h2>
@@ -64,17 +64,17 @@ export default function PainTaxonomy() {
               className="group border-t border-ink/10 py-7"
             >
               <div className="flex items-baseline gap-5">
-                <span className="ledger-num text-[0.78rem] text-ink-mute/70">
+                <span className="ledger-num text-[0.78rem] text-ink-mute">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="font-display text-[1.35rem] font-medium leading-tight text-ink transition-colors duration-300 group-hover:text-ember">
+                  <h3 className="font-display text-[1.35rem] font-medium leading-tight text-ink transition-colors duration-300 group-hover:text-ember-ink">
                     {p.name}
                   </h3>
                   <p className="mt-2.5 max-w-[46ch] text-[0.95rem] leading-relaxed text-ink/75">
                     {p.story}
                   </p>
-                  <p className="mt-3 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ember">
+                  <p className="mt-3 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ember-ink">
                     Cost: <span className="normal-case tracking-normal">{p.cost}</span>
                   </p>
                 </div>

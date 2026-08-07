@@ -89,7 +89,7 @@ export default function ProofTable() {
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-28">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="eyebrow text-ember">Proof</p>
+            <p className="eyebrow text-ember-ink">Proof</p>
             <h2 className="font-display mt-4 max-w-[24ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.5rem]">
               The report is a ledger, not a slideshow.
             </h2>

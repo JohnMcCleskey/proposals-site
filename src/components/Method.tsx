@@ -11,7 +11,7 @@ export default function Method() {
     <section id="method" className="bg-paper-bright" aria-label="Method">
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-28">
         <Reveal>
-          <p className="eyebrow text-ember">Method</p>
+          <p className="eyebrow text-ember-ink">Method</p>
           <h2 className="font-display mt-4 max-w-[24ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.5rem]">
             Diagnose. Recommend. Prove.
           </h2>
@@ -26,7 +26,7 @@ export default function Method() {
           <div className="bezel grid gap-8 p-6 sm:p-9 lg:grid-cols-[1fr_1.05fr] lg:gap-12">
             <div>
               <p className="eyebrow flex items-center gap-2.5 text-ink-mute">
-                <span className="ledger-num text-ember">01</span> Diagnose
+                <span className="ledger-num text-ember-ink">01</span> Diagnose
               </p>
               <h3 className="font-display mt-4 text-[1.5rem] font-medium leading-tight text-ink">
                 Plain questions about how work actually moves.
@@ -56,7 +56,7 @@ export default function Method() {
                   key={a.k}
                   className="flex items-baseline gap-4 rounded-xl border border-ink/10 bg-paper px-5 py-3.5"
                 >
-                  <span className="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ember">
+                  <span className="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ember-ink">
                     {a.k}
                   </span>
                   <span className="text-[0.88rem] text-ink/70">{a.v}</span>
@@ -72,7 +72,7 @@ export default function Method() {
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="eyebrow flex items-center gap-2.5 text-ink-mute">
-                  <span className="ledger-num text-ember">02</span> Recommend
+                  <span className="ledger-num text-ember-ink">02</span> Recommend
                 </p>
                 <h3 className="font-display mt-4 text-[1.5rem] font-medium leading-tight text-ink">
                   Three lanes, one honest ranking.
@@ -125,7 +125,7 @@ export default function Method() {
         <Reveal className="mt-8">
           <div className="bezel p-6 sm:p-9">
             <p className="eyebrow flex items-center gap-2.5 text-ink-mute">
-              <span className="ledger-num text-ember">03</span> Prove
+              <span className="ledger-num text-ember-ink">03</span> Prove
             </p>
             <h3 className="font-display mt-4 text-[1.5rem] font-medium leading-tight text-ink">
               A closed loop, not a victory lap.
@@ -139,7 +139,7 @@ export default function Method() {
                 { s: "Report", d: "The delta, on one page you can hand over." },
               ].map((step, i) => (
                 <li key={step.s} className="relative rounded-2xl border border-ink/10 bg-paper p-5">
-                  <span className="ledger-num text-[0.72rem] text-ink-mute/70">
+                  <span className="ledger-num text-[0.72rem] text-ink-mute">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="font-display mt-1.5 text-[1.1rem] font-medium text-ink">

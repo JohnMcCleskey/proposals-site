@@ -41,7 +41,7 @@ export default function FinalCTA() {
               Book a 15 minute call
             </MagneticButton>
           </div>
-          <p className="mt-6 text-[0.82rem] text-paper/40">
+          <p className="mt-6 text-[0.82rem] text-paper/60">
             Prefer email? <a className="underline decoration-paper/30 underline-offset-4 transition-colors hover:text-paper/70" href="mailto:ops@stonewave.life">ops@stonewave.life</a>
           </p>
         </Reveal>

@@ -38,7 +38,7 @@ export default function Deliverables() {
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal>
-            <p className="eyebrow text-ember">What you get</p>
+            <p className="eyebrow text-ember-ink">What you get</p>
             <h2 className="font-display mt-4 max-w-[18ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-ink sm:text-[2.5rem]">
               A brief you could act on without us.
             </h2>
@@ -75,11 +75,11 @@ export default function Deliverables() {
                   delay={i * 70}
                   className="group flex gap-5 py-5"
                 >
-                  <span className="ledger-num pt-0.5 text-[0.8rem] text-ink-mute/70">
+                  <span className="ledger-num pt-0.5 text-[0.8rem] text-ink-mute">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <h3 className="font-display text-[1.15rem] font-medium text-ink transition-colors duration-300 group-hover:text-ember">
+                    <h3 className="font-display text-[1.15rem] font-medium text-ink transition-colors duration-300 group-hover:text-ember-ink">
                       {item.name}
                     </h3>
                     <p className="mt-1.5 max-w-[52ch] text-[0.9rem] leading-relaxed text-ink/70">
