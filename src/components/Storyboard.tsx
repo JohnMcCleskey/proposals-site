@@ -50,7 +50,8 @@ function VignetteMess() {
             className="rounded-xl border border-paper/15 bg-ink-raise px-3.5 py-2.5 text-[0.8rem] text-paper/75 shadow-ink-card"
             style={{
               transform: `rotate(${n.r})`,
-              marginLeft: n.x,
+              // Never lets a note's right edge escape the column.
+              marginLeft: `min(${n.x}, calc(100% - 14.6rem))`,
               marginTop: `${i * 3.1}rem`,
               position: "absolute",
               top: 0,
@@ -232,7 +233,7 @@ function VignetteRetest() {
         {rows.map((r, i) => (
           <El key={r.m}>
             <div
-              className={`grid grid-cols-[1fr_auto_auto_auto] items-center gap-3 bg-ink-raise/70 px-4 py-3 ${
+              className={`grid grid-cols-[1fr_auto_auto] items-center gap-2 bg-ink-raise/70 px-4 py-3 sm:grid-cols-[1fr_auto_auto_auto] sm:gap-3 ${
                 i > 0 ? "border-t border-paper/10" : ""
               }`}
             >
@@ -240,7 +241,7 @@ function VignetteRetest() {
               <span className="ledger-num text-[0.8rem] text-paper/60">
                 {r.b}
               </span>
-              <span aria-hidden="true" className="text-paper/35">&rarr;</span>
+              <span aria-hidden="true" className="hidden text-paper/35 sm:inline">&rarr;</span>
               <span className="ledger-num text-[0.86rem] font-semibold text-[#9fceb2]">
                 {r.r}
                 <span className="ml-2 rounded bg-proof/25 px-1.5 py-0.5 text-[0.62rem]">
@@ -404,10 +405,16 @@ export default function Storyboard() {
   const [pinned, setPinned] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let ctx: { revert: () => void } | undefined;
     let cancelled = false;
+    let mm:
+      | {
+          add: (
+            query: string,
+            callback: () => void | (() => void),
+          ) => unknown;
+          revert: () => void;
+        }
+      | undefined;
 
     (async () => {
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([
@@ -417,17 +424,30 @@ export default function Storyboard() {
       if (cancelled || !wrapRef.current || !stageRef.current) return;
 
       gsap.registerPlugin(ScrollTrigger);
+      // Mobile URL-bar show/hide must not re-measure the pin distance.
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
-      // Commit the pinned layout synchronously so GSAP never measures the
-      // static fallback layout (that race pins the wrong height).
-      flushSync(() => setPinned(true));
+      mm = gsap.matchMedia();
+      // Pin only when motion is allowed AND the viewport is tall enough
+      // to hold the fixed stage; short viewports (landscape phones,
+      // squat laptops) keep the static stacked storyboard instead of a
+      // pinned stage that would clip its own content.
+      mm.add(
+        "(prefers-reduced-motion: no-preference) and (min-height: 40rem)",
+        () => {
+          if (cancelled || !wrapRef.current || !stageRef.current) return;
 
-      requestAnimationFrame(() => {
-        if (cancelled || !wrapRef.current || !stageRef.current) return;
+          // Commit the pinned layout synchronously so GSAP never
+          // measures the static fallback (that race pins the wrong
+          // height).
+          flushSync(() => setPinned(true));
 
-        ctx = gsap.context(() => {
-          const scenes = gsap.utils.toArray<HTMLElement>(".scene");
+          const scenes = gsap.utils.toArray<HTMLElement>(
+            ".scene",
+            wrapRef.current,
+          );
           const SCENE = 3.2; // timeline units per beat
+          const TOTAL = BEATS.length * SCENE;
           const tl = gsap.timeline({
             defaults: { ease: "power2.out" },
             scrollTrigger: {
@@ -438,14 +458,16 @@ export default function Storyboard() {
               scrub: 0.65,
               anticipatePin: 1,
               onUpdate: (self) => {
-                // Bias by the crossfade lead so the counter matches the
-                // beat that is actually on screen mid-hold.
                 const idx = Math.max(
                   0,
                   Math.min(
                     BEATS.length - 1,
-                    Math.floor(self.progress * BEATS.length - 0.45),
+                    Math.floor(self.progress * BEATS.length + 0.05),
                   ),
+                );
+                // Only the on-screen beat accepts pointer interaction.
+                scenes.forEach((s, n) =>
+                  s.classList.toggle("scene-active", n === idx),
                 );
                 if (counterRef.current) {
                   counterRef.current.textContent = `0${idx + 1} / 0${BEATS.length}`;
@@ -470,19 +492,20 @@ export default function Storyboard() {
                 pos,
               );
             } else {
-              // Incoming overlaps the previous scene's exit so the stage
-              // is never empty mid-scroll.
+              // Incoming starts the moment the outgoing begins its exit,
+              // so their alpha curves cross above half strength and the
+              // stage never reads as empty.
               tl.fromTo(
                 scene,
                 { opacity: 0, y: 46, scale: 0.985 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.8 },
-                pos - 0.35,
+                { opacity: 1, y: 0, scale: 1, duration: 0.9 },
+                pos - 0.55,
               );
               tl.fromTo(
                 els,
                 { opacity: 0, y: 26 },
                 { opacity: 1, y: 0, stagger: 0.12, duration: 0.6 },
-                pos - 0.1,
+                pos - 0.25,
               );
             }
             if (i < scenes.length - 1) {
@@ -493,19 +516,28 @@ export default function Storyboard() {
               );
             }
           });
-        }, wrapRef);
 
-        ScrollTrigger.refresh();
-        // Re-measure once web fonts settle so pin distances stay exact.
-        document.fonts?.ready.then(() => {
-          if (!cancelled) ScrollTrigger.refresh();
-        });
-      });
+          // Pad to exactly TOTAL so scroll progress maps linearly onto
+          // beat indices for the counter.
+          tl.to({}, { duration: 0.001 }, TOTAL - 0.001);
+
+          ScrollTrigger.refresh();
+          // Re-measure once web fonts settle so pin distances stay exact.
+          document.fonts?.ready.then(() => {
+            if (!cancelled) ScrollTrigger.refresh();
+          });
+
+          return () => {
+            // Condition stopped matching: back to the static stack.
+            if (!cancelled) setPinned(false);
+          };
+        },
+      );
     })();
 
     return () => {
       cancelled = true;
-      ctx?.revert();
+      mm?.revert();
     };
   }, []);
 

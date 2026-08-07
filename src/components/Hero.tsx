@@ -91,11 +91,11 @@ export default function Hero() {
       <div className="relative border-t border-paper/10">
         <div className="mx-auto flex w-full max-w-wrap flex-wrap items-center justify-center px-5 py-4 sm:justify-between sm:px-8">
           <p className="eyebrow hidden text-paper/55 sm:block">How we work</p>
-          <ul className="flex flex-wrap items-center justify-center">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-center sm:flex sm:items-center sm:gap-0">
             {TRUST_TICKS.map((t) => (
               <li
                 key={t}
-                className="tick-sep font-mono text-[0.72rem] uppercase tracking-[0.14em] text-paper/60 [&::before]:text-paper/30"
+                className="sm:tick-sep font-mono text-[0.72rem] uppercase tracking-[0.14em] text-paper/60 [&::before]:text-paper/30"
               >
                 {t}
               </li>

@@ -54,7 +54,7 @@ export default function Method() {
               ].map((a) => (
                 <div
                   key={a.k}
-                  className="flex items-baseline gap-4 rounded-xl border border-ink/10 bg-paper px-5 py-3.5"
+                  className="flex flex-col gap-1 rounded-xl border border-ink/10 bg-paper px-5 py-3.5 sm:flex-row sm:items-baseline sm:gap-4"
                 >
                   <span className="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ember-ink">
                     {a.k}
@@ -131,7 +131,7 @@ export default function Method() {
               A closed loop, not a victory lap.
             </h3>
 
-            <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
               {[
                 { s: "Baseline", d: "Measure before anything changes." },
                 { s: "Adopt", d: "Log the changes that actually stuck." },
@@ -151,7 +151,7 @@ export default function Method() {
                   {i < 3 && (
                     <span
                       aria-hidden="true"
-                      className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-ink-mute/50 lg:block"
+                      className="absolute -right-3 top-1/2 hidden -translate-y-1/2 translate-x-1/2 text-ink-mute/50 lg:block"
                     >
                       &rarr;
                     </span>

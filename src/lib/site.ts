@@ -18,7 +18,7 @@ export type FamilySurface = {
   role: string;
   line: string;
   detail: string;
-  span: "wide" | "tall" | "std";
+  span: "wide" | "std";
   here?: boolean;
 };
 

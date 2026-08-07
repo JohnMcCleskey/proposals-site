@@ -17,23 +17,24 @@ export function useReveal<T extends HTMLElement>(delay = 0) {
       el.classList.add("rv-in");
       return;
     }
+    let t: number | undefined;
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            const t = window.setTimeout(
-              () => el.classList.add("rv-in"),
-              delay,
-            );
+            t = window.setTimeout(() => el.classList.add("rv-in"), delay);
             io.disconnect();
-            return () => window.clearTimeout(t);
+            return;
           }
         }
       },
       { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      if (t !== undefined) window.clearTimeout(t);
+    };
   }, [delay]);
 
   return ref;

@@ -101,7 +101,7 @@ export default function ProofTable() {
 
         <div ref={ref} className="bezel mt-10 overflow-hidden shadow-card">
           {/* header row */}
-          <div className="hidden grid-cols-[2fr_1fr_0.8fr_0.8fr_1.2fr] gap-4 border-b border-ink/10 bg-paper px-6 py-3.5 md:grid">
+          <div className="hidden grid-cols-[2fr_1fr_0.7fr_0.7fr_1.4fr] gap-4 border-b border-ink/10 bg-paper px-6 py-3.5 md:grid">
             {["Action", "Baseline", "Projected", "Adopted", "Retest"].map(
               (h) => (
                 <span
@@ -129,7 +129,7 @@ export default function ProofTable() {
               }}
             >
               {/* desktop grid */}
-              <div className="hidden grid-cols-[2fr_1fr_0.8fr_0.8fr_1.2fr] items-center gap-4 md:grid">
+              <div className="hidden grid-cols-[2fr_1fr_0.7fr_0.7fr_1.4fr] items-center gap-4 md:grid">
                 <span className={`text-[0.95rem] font-medium ${r.deferred ? "text-ink-mute" : "text-ink"}`}>
                   {r.action}
                   {r.deferred && (
@@ -149,7 +149,7 @@ export default function ProofTable() {
                 >
                   {r.adopted}
                 </span>
-                <span className="flex items-center gap-3">
+                <span className="flex flex-wrap items-center gap-2">
                   <span
                     className={`ledger-num text-[0.92rem] font-semibold ${r.deferred ? "text-ink-mute/70" : "text-proof-deep"}`}
                   >

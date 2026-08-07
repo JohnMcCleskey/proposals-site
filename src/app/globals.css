@@ -5,11 +5,9 @@
 /* ————————————————————————————————— tokens */
 :root {
   --ink: #071b2d;
-  --ink-deep: #04101c;
   --paper: #f7f5ef;
   --paper-bright: #fdfcf8;
   --ember: #d77125;
-  --proof: #39734f;
   --ease-swift: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -118,11 +116,6 @@ body {
     );
 }
 
-/* hairline rules that echo ledger paper */
-.rule-t {
-  border-top: 1px solid rgba(7, 27, 45, 0.12);
-}
-
 /* ————————————————————————————————— CSS entrance (no-JS safe) */
 @keyframes rise-in {
   from {
@@ -170,6 +163,10 @@ body {
   opacity: 0;
   pointer-events: none;
 }
+.scene.scene-active {
+  pointer-events: auto;
+}
+
 /* reduced-motion + no-JS storyboard fallback stacks scenes vertically */
 .storyboard-static .scene {
   position: relative;
@@ -179,15 +176,19 @@ body {
   margin-bottom: 2.5rem;
 }
 
-/* ————————————————————————————————— marquee-free trust strip divider */
-.tick-sep::before {
-  content: "·";
-  margin: 0 0.9rem;
-  color: rgba(7, 27, 45, 0.35);
-}
-.tick-sep:first-child::before {
-  content: none;
-  margin: 0;
+/* ————————————————————————————————— marquee-free trust strip divider
+   Dots only appear in the single-row (sm and up) layout, so a wrapped
+   line never starts with a dangling separator. */
+@media (min-width: 640px) {
+  .sm\:tick-sep::before {
+    content: "·";
+    margin: 0 0.9rem;
+    color: rgba(7, 27, 45, 0.35);
+  }
+  .sm\:tick-sep:first-child::before {
+    content: none;
+    margin: 0;
+  }
 }
 
 /* ————————————————————————————————— ledger table */

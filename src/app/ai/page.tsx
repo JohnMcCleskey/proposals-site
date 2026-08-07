@@ -6,6 +6,7 @@ export const metadata = {
   description:
     "Machine-readable service definition for agent-to-agent discovery.",
   robots: "index, follow",
+  alternates: { canonical: "https://stonewave.life/ai" },
 };
 
 export default function AIAgentPage() {

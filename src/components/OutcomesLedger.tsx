@@ -9,7 +9,12 @@ import { useReducedMotion } from "motion/react";
  * All figures are an illustrative scenario and labeled as such.
  */
 
-const STAGES = ["Baseline", "Projected", "Adopted", "Retest"] as const;
+const STAGES = [
+  { full: "Baseline", short: "Base" },
+  { full: "Projected", short: "Proj" },
+  { full: "Adopted", short: "Adopt" },
+  { full: "Retest", short: "Retest" },
+] as const;
 
 type Row = {
   metric: string;
@@ -106,7 +111,7 @@ export default function OutcomesLedger() {
       >
         {STAGES.map((s, i) => (
           <button
-            key={s}
+            key={s.full}
             type="button"
             aria-pressed={stage === i}
             onClick={() => {
@@ -114,13 +119,14 @@ export default function OutcomesLedger() {
               setPaused(true);
               setStage(i);
             }}
-            className={`rounded-full px-1 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.08em] transition-colors duration-300 sm:text-[0.66rem] ${
+            className={`rounded-full px-1 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.04em] transition-colors duration-300 sm:text-[0.66rem] sm:tracking-[0.08em] ${
               stage === i
                 ? "bg-ink text-paper"
                 : "text-ink-mute hover:bg-ink/[0.06] hover:text-ink"
             }`}
           >
-            {s}
+            <span className="sm:hidden">{s.short}</span>
+            <span className="hidden sm:inline">{s.full}</span>
           </button>
         ))}
       </div>
@@ -144,7 +150,7 @@ export default function OutcomesLedger() {
                 {row.delta}
               </span>
             </div>
-            <div className="mt-2.5 grid grid-cols-4 gap-2">
+            <div className="mt-2.5 grid grid-cols-2 gap-x-3 gap-y-2 sm:grid-cols-4 sm:gap-2">
               <Cell label="Base" value={row.baseline} on={active(0)} muted />
               <Cell label="Proj" value={row.projected} on={active(1)} />
               <Cell label="Adopted" value={row.adopted} on={active(2)} text />

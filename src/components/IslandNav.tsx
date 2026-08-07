@@ -45,9 +45,13 @@ export default function IslandNav() {
       <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:pt-4">
         <motion.nav
           aria-label="Primary"
-          initial={reduced ? false : { y: -24, opacity: 0 }}
+          initial={{ y: -24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 180, damping: 24 }}
+          transition={
+            reduced
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 180, damping: 24 }
+          }
           className={`island flex w-full max-w-[58rem] items-center justify-between gap-2 rounded-full border px-3 py-2 transition-[background-color,border-color,box-shadow] duration-500 sm:px-4 ${
             scrolled
               ? "border-ink/10 bg-paper-bright/85 shadow-island"
@@ -150,7 +154,7 @@ export default function IslandNav() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -10, opacity: 0 }}
               transition={{ type: "spring", stiffness: 220, damping: 26 }}
-              className="absolute inset-x-3 top-[4.6rem] rounded-3xl border border-ink/10 bg-paper-bright p-3 shadow-lift"
+              className="absolute inset-x-3 top-[4.6rem] max-h-[calc(100svh-5.5rem)] overflow-y-auto overscroll-contain rounded-3xl border border-ink/10 bg-paper-bright p-3 shadow-lift"
               onClick={(e) => e.stopPropagation()}
             >
               {NAV_ITEMS.map((item) => (

@@ -101,3 +101,14 @@ at 1440 x 900, 375 x 800, 375 x 667, 360 x 780):
   "Replace the CRM" row to show a recommendation against buying.
 - No em-dashes in UI copy, no hype vocabulary, no public pricing, no
   invented logos, metrics, or certifications.
+
+Second review wave (five specialist reviewers over the code) surfaced
+and fixed: pinned-stage clipping on short viewports (the pin now
+engages only at 40rem viewport height and above, via GSAP matchMedia;
+shorter viewports keep the static storyboard), scene crossfade curves
+that dipped too low mid-transition, beat-counter drift against the
+scrubbed timeline, crushed ledger cells and stepper labels at 360 px,
+mobile menu overflow on short screens, an inherited canonical tag on
+/ai, a Twitter card declared without an image (downgraded to summary
+until the OG image ships), JSON-LD sameAs misuse (now Brand entries),
+a leaked reveal timeout, and two unused dependencies.

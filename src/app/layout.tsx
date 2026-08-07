@@ -26,7 +26,7 @@ const FAMILY_URLS = [
 export const metadata: Metadata = {
   title: "StoneWave. Clarity before technology.",
   description:
-    "StoneWave helps owner-led companies fine-tune how they run. We diagnose where value is stuck, recommend the smallest high-leverage changes, and prove what improved with a baseline and a retest.",
+    "StoneWave helps owner-led companies find where value is stuck, make the smallest high-leverage changes, and prove what improved against a baseline.",
   keywords: [
     "business diagnostic",
     "operations improvement",
@@ -49,7 +49,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: {
-    card: "summary_large_image",
+    // summary until the 1200x630 OG image ships (see docs/redesign-notes.md)
+    card: "summary",
     title: "StoneWave. Clarity before technology.",
     description:
       "We diagnose where value is stuck, recommend the smallest high-leverage changes, and prove what improved.",
@@ -91,7 +92,10 @@ export default function RootLayout({
                     "@type": "ImageObject",
                     url: `${SITE}/stonewave-logo.svg`,
                   },
-                  sameAs: FAMILY_URLS,
+                  brand: FAMILY_URLS.map((url) => ({
+                    "@type": "Brand",
+                    url,
+                  })),
                   description:
                     "StoneWave helps owner-led companies fine-tune how they run: diagnosis first, independent recommendations, and a proof cycle of baseline, adopt, retest, report.",
                   founder: { "@type": "Person", name: "John McCleskey" },
