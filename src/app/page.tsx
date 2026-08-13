@@ -4,7 +4,9 @@ import Storyboard from "@/components/Storyboard";
 import PainTaxonomy from "@/components/PainTaxonomy";
 import Method from "@/components/Method";
 import ProofTable from "@/components/ProofTable";
+import OwnerHours from "@/components/OwnerHours";
 import Deliverables from "@/components/Deliverables";
+import WhenWeBuild from "@/components/WhenWeBuild";
 import FamilyBento from "@/components/FamilyBento";
 import WhoItsFor from "@/components/WhoItsFor";
 import Guardrails from "@/components/Guardrails";
@@ -21,7 +23,9 @@ export default function HomePage() {
         <PainTaxonomy />
         <Method />
         <ProofTable />
+        <OwnerHours />
         <Deliverables />
+        <WhenWeBuild />
         <FamilyBento />
         <WhoItsFor />
         <Guardrails />

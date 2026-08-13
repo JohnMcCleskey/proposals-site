@@ -104,6 +104,51 @@ at 1440 x 900, 375 x 800, 375 x 667, 360 x 780):
 - No em-dashes in UI copy, no hype vocabulary, no public pricing, no
   invented logos, metrics, or certifications.
 
+## 5. Two sections added after launch
+
+**`OwnerHours` (id `life`), between the proof ledger and Deliverables.**
+Names what the week currently costs an owner and commits to counting
+hours returned, without promising balance or converting an hour into
+money or meaning. Two standing constraints on any edit: nothing in this
+section may prescribe a fix, and nothing may add a figure. It sits one
+screen below a ledger row that came in under its own projection, so a
+promise here would read as a claim the page just disproved. The
+concrete human detail lives in the present tense, describing the
+current cost, never the future benefit.
+
+**`WhenWeBuild` (id `build`), between Deliverables and the family
+grid.** Makes the implementation lane explicit: connecting tools the
+client already pays for, building a dashboard or portal, and hosting
+the result including on their own domain. Every block carries the
+condition that has to hold first, and the fourth block is the
+process-only option that beats a build.
+
+Position is load-bearing in both directions. Deliverables closes on
+"implementation is optional and scoped separately, and the
+recommendations do not change if you never buy it," which is the line
+that licenses the build section, so the build section must never move
+above it. The family grid immediately after is what makes the
+capability credible, so those two stay adjacent.
+
+The build section deliberately does not assert independence a third
+time. Method 02 and Guardrail 01 already do that; a third assertion
+next to a description of paid work would protest too much. It states
+sequence instead. Method's three lanes keep equal billing and one line
+each, since that equality is the argument; the only change there is a
+small link inside the "We implement" card, which subordinates the new
+section to an existing lane rather than letting it read as a fourth.
+Neither section is in the nav: a nav entry for the build lane would
+present implementation as a standing service line.
+
+Six drafts, six adversarial judges, and one synthesis pass produced
+this copy. The judges' most useful finding, present in almost every
+draft, was unhedged promised outcomes ("the relay stops", "Saturday
+stops being the day you rebuild the week"). On a page whose credibility
+is baseline and retest, a flat causal promise is the one failure mode
+that costs more than it wins.
+
+## 6. Review record
+
 Second review wave (five specialist reviewers over the code) surfaced
 and fixed: pinned-stage clipping on short viewports (the pin now
 engages only at 40rem viewport height and above, via GSAP matchMedia;
