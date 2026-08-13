@@ -11,28 +11,48 @@ that cost real time in August 2026.
 | --- | --- |
 | Repository | `JohnMcCleskey/proposals-site` |
 | Vercel team | `stone-wave` (`team_7LaVAgGB6LjB4YesBOG2IDsB`) |
-| Vercel project | `stonewave-preview-v2` (`prj_MZF6xGOjM8gbbIhcc7GBPhAsij1R`) |
+| Serving project | `stonewave-preview-v2` (`prj_MZF6xGOjM8gbbIhcc7GBPhAsij1R`) |
+| Also connected | `proposals-site` (`prj_YtJFdrK9SrAe3jIlXU2r4UyDUrhw`) |
 | Production domain | `stonewave.life`, `www.stonewave.life` |
 | Production branch | `main` |
 | Framework | Next.js, pinned via `vercel.json` |
 
-**This repository is connected to exactly one Vercel project.** Merging
-to `main` triggers the production deployment that serves the apex
-domain. Pull requests get preview deployments on the same project, and
-the Vercel bot comments the preview URL on each one.
+`stonewave.life` is served by **`stonewave-preview-v2`**. Merging to
+`main` triggers the production deployment behind the apex domain.
 
-The project name is a leftover from when it was staging. It is
+That project's name is a leftover from when it was staging. It is
 production now, despite reading "preview-v2". Renaming it in Vercel
 would remove the trap; until then, do not assume from the name that it
 is a scratch environment.
+
+**Two projects build from this repository**, not one. As of 13 Aug 2026
+every push produces a deployment on both `stonewave-preview-v2` and
+`proposals-site`, and the Vercel bot comments both preview URLs on each
+pull request. Only the first one is wired to the domain.
+
+This is worth resolving rather than living with. Two builds per push
+doubles build minutes, and if the `proposals-site` project also has
+`main` as its production branch it is publishing the same commits to a
+second production URL. Either disconnect that project from the
+repository (Vercel, Settings, Git, Disconnect) or keep it deliberately
+and record why here.
 
 ## Trap 1: the domain lived on a different project
 
 The redesign merged to `main` and deployed cleanly, and
 `stonewave.life` kept serving the previous site for hours. The apex
-domain was still attached to an older Vercel project that had no
-connection to this repository, so production builds here were landing
-at the project's `.vercel.app` URL and nowhere else.
+domain was attached to a different Vercel project, so production builds
+from this repository were landing at `stonewave-preview-v2`'s
+`.vercel.app` URL and nowhere the public could see.
+
+The signal that misled the diagnosis: on pull requests #3 and #4 the
+Vercel bot listed only `stonewave-preview-v2`, which made it look like
+the repository fed exactly one project and the domain therefore sat on
+something unconnected. By #5 the bot was listing `proposals-site` too.
+So a project can be attached to the repository and still be absent from
+that table, presumably when its builds are paused or ignored. **Do not
+infer the full set of connected projects from the bot comment.** Read
+it from the Vercel dashboard.
 
 Fixed by moving `stonewave.life` and `www.stonewave.life` to
 `stonewave-preview-v2` in Vercel (Settings, Domains). Both projects
@@ -40,10 +60,10 @@ were in the same team, so no DNS change was needed.
 
 **If the live site looks stale after a merge, check domain ownership
 before you debug the build.** In Vercel, confirm `stonewave.life` is
-listed under `stonewave-preview-v2`, then confirm Settings, Git,
-Production Branch reads `main`, then look at the Deployments tab for a
-Production build of the merge commit. In that order. The build is
-almost never the problem.
+listed under `stonewave-preview-v2` and not on a sibling project, then
+confirm Settings, Git, Production Branch reads `main`, then look at the
+Deployments tab for a Production build of the merge commit. In that
+order. The build is almost never the problem.
 
 ## Trap 2: agents cannot see this site
 
