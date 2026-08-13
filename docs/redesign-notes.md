@@ -3,6 +3,8 @@
 Companion notes for the 2026 rebuild of stonewave.life around the
 Provable Outcomes method: Diagnose, Recommend, Prove.
 
+For where this ships and how to verify it, see `docs/deploy.md`.
+
 ---
 
 ## 1. Assets still needed
