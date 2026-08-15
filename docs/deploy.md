@@ -50,9 +50,19 @@ Vercel bot listed only `stonewave-preview-v2`, which made it look like
 the repository fed exactly one project and the domain therefore sat on
 something unconnected. By #5 the bot was listing `proposals-site` too.
 So a project can be attached to the repository and still be absent from
-that table, presumably when its builds are paused or ignored. **Do not
-infer the full set of connected projects from the bot comment.** Read
-it from the Vercel dashboard.
+that table.
+
+There are at least two ways that happens, and both have bitten:
+
+- The project's builds are paused or ignored, so it never appears.
+- The comment is posted before every project's build registers. The
+  bot edits the same comment in place as each one lands, so a table
+  read seconds after a push can show one project and a table read a
+  minute later shows two.
+
+**Do not infer the set of connected projects from the bot comment, in
+either direction.** A project missing from it is not disconnected, and
+the table is not an inventory. Read it from the Vercel dashboard.
 
 Fixed by moving `stonewave.life` and `www.stonewave.life` to
 `stonewave-preview-v2` in Vercel (Settings, Domains). Both projects

@@ -95,6 +95,8 @@ export default function Method() {
                   lane: "We implement",
                   note: "Optional, scoped separately, priced separately. The brief stands on its own without it.",
                   tag: "Scoped apart",
+                  href: "#build",
+                  linkLabel: "What a build has to clear",
                 },
                 {
                   lane: "Add a tool",
@@ -115,6 +117,15 @@ export default function Method() {
                   <p className="mt-2 text-[0.88rem] leading-relaxed text-ink/70">
                     {l.note}
                   </p>
+                  {l.href && (
+                    <a
+                      href={l.href}
+                      className="mt-3 inline-flex items-center gap-1.5 text-[0.82rem] text-ember-ink underline decoration-ember/40 underline-offset-4 transition-colors hover:decoration-ember"
+                    >
+                      {l.linkLabel}
+                      <span aria-hidden="true">&darr;</span>
+                    </a>
+                  )}
                 </div>
               ))}
             </div>

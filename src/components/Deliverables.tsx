@@ -34,7 +34,7 @@ const ITEMS = [
 
 export default function Deliverables() {
   return (
-    <section id="work" className="bg-paper-bright" aria-label="What you get">
+    <section id="work" className="bg-paper" aria-label="What you get">
       <div className="mx-auto w-full max-w-wrap px-5 py-20 sm:px-8 lg:py-28">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal>
