@@ -32,6 +32,21 @@ describe("supply pointe upload helpers", () => {
     ).toBe(true);
   });
 
+  it("accepts saved Outlook and Apple Mail emails", () => {
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-order.eml`,
+        sessionId,
+      ),
+    ).toBe(true);
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-order.msg`,
+        sessionId,
+      ),
+    ).toBe(true);
+  });
+
   it("rejects a native Google Sheet shortcut", () => {
     expect(
       isAllowedUploadPathname(

@@ -19,6 +19,7 @@
 .supporting { margin:13px 0 0; color:rgba(7,27,45,.6); font-size:.76rem; line-height:1.5; }
 .shareLabel { display:block; margin:26px 0 11px; font-size:.82rem; font-weight:600; }
 .shareInput { display:block; width:100%; margin-top:8px; min-height:43px; padding:10px 12px; border:1px solid rgba(7,27,45,.28); background:#fff; font:inherit; }
+textarea.shareInput { min-height:160px; resize:vertical; line-height:1.45; }
 .errorText { display:block; margin:8px 0 0; color:#9d3217; font-size:.78rem; font-style:normal; font-weight:400; }
 .fileList { margin:26px 0 0; padding:0; border-top:1px solid rgba(7,27,45,.14); list-style:none; }
 .fileList li { display:flex; justify-content:space-between; gap:18px; padding:13px 0; border-bottom:1px solid rgba(7,27,45,.14); font-size:.87rem; }

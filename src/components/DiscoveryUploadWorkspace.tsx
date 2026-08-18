@@ -13,7 +13,7 @@ type LocalFile = {
   detail?: string;
 };
 
-export const DEFAULT_ACCEPTED_FILES = ".xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.txt,.pdf,.docx,.doc,.zip,.mp4,.mov,.m4v,.webm,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.tif,.tiff,.bmp";
+export const DEFAULT_ACCEPTED_FILES = ".xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.txt,.pdf,.docx,.doc,.zip,.eml,.msg,.mbox,.mp4,.mov,.m4v,.webm,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.tif,.tiff,.bmp";
 const GOOGLE_SHEET_HINT = "Google Sheets files cannot upload directly. Export as Excel or CSV, or paste the share link below.";
 
 export type DiscoveryUploadWorkspaceProps = {
@@ -21,7 +21,9 @@ export type DiscoveryUploadWorkspaceProps = {
   pathPrefix: string;
   handleUploadUrl: string;
   shareLinkUrl: string;
+  noteUrl?: string;
   materials: string[];
+  guidance?: string[];
 };
 
 function uploadPath(pathPrefix: string, sessionId: string, file: File) {
@@ -50,13 +52,18 @@ export default function DiscoveryUploadWorkspace({
   pathPrefix,
   handleUploadUrl,
   shareLinkUrl,
+  noteUrl,
   materials,
+  guidance,
 }: DiscoveryUploadWorkspaceProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<LocalFile[]>([]);
   const [shareUrl, setShareUrl] = useState("");
   const [shareStatus, setShareStatus] = useState<"idle" | "saving" | "received" | "error">("idle");
   const [shareDetail, setShareDetail] = useState("");
+  const [note, setNote] = useState("");
+  const [noteStatus, setNoteStatus] = useState<"idle" | "saving" | "received" | "error">("idle");
+  const [noteDetail, setNoteDetail] = useState("");
 
   function addFiles(selected: FileList | null) {
     if (!selected) return;
@@ -134,6 +141,29 @@ export default function DiscoveryUploadWorkspace({
     }
   }
 
+  async function saveNote() {
+    if (!noteUrl) return;
+    setNoteStatus("saving");
+    setNoteDetail("");
+
+    try {
+      const response = await fetch(noteUrl, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ sessionId, note }),
+      });
+      const result = (await response.json()) as { status?: string; error?: string };
+      if (!response.ok || result.status !== "received") {
+        throw new Error(result.error || "The email could not be saved.");
+      }
+      setNoteStatus("received");
+      setNote("");
+    } catch (error) {
+      setNoteStatus("error");
+      setNoteDetail(error instanceof Error ? error.message : "The email could not be saved.");
+    }
+  }
+
   const hasReadyFiles = files.some(({ status }) => status === "ready");
   const isUploading = files.some(({ status }) => status === "uploading");
 
@@ -145,10 +175,17 @@ export default function DiscoveryUploadWorkspace({
           <h2 id="materials-heading">Share the working source material.</h2>
         </div>
         <p>
-          Files stay private to this diagnostic. Google Sheets work best as a view-only
-          share link, or as an Excel/CSV export. Please do not upload passwords or API keys.
+          Files stay private to this diagnostic. Paste a Google Sheet link, drop Excel or CSV,
+          or paste a real order email. Please do not upload passwords or API keys.
         </p>
       </div>
+
+      {guidance && guidance.length > 0 ? (
+        <div className={styles.requested}>
+          <h3>What helps most</h3>
+          <ul>{guidance.map((item) => <li key={item}>{item}</li>)}</ul>
+        </div>
+      ) : null}
 
       <div className={styles.requested}>
         <h3>Requested materials</h3>
@@ -181,6 +218,35 @@ export default function DiscoveryUploadWorkspace({
       {shareStatus === "received" ? <p className={styles.supporting}>Link received. We can work from that.</p> : null}
       {shareStatus === "error" ? <p className={styles.errorText}>{shareDetail}</p> : null}
 
+      {noteUrl ? (
+        <>
+          <label className={styles.shareLabel} htmlFor="order-email">
+            Paste a real order email
+            <textarea
+              id="order-email"
+              className={styles.shareInput}
+              rows={8}
+              placeholder="From: customer@…&#10;Need 12 small furniture pallets to the usual dock…"
+              value={note}
+              onChange={(event) => {
+                setNote(event.target.value);
+                if (noteStatus !== "idle") setNoteStatus("idle");
+              }}
+            />
+          </label>
+          <button
+            className={styles.selectButton}
+            type="button"
+            disabled={note.trim().length < 20 || noteStatus === "saving"}
+            onClick={() => void saveNote()}
+          >
+            {noteStatus === "saving" ? "Saving email" : "Save pasted email"}
+          </button>
+          {noteStatus === "received" ? <p className={styles.supporting}>Email received. Paste another if you have more.</p> : null}
+          {noteStatus === "error" ? <p className={styles.errorText}>{noteDetail}</p> : null}
+        </>
+      ) : null}
+
       <div className={styles.actions}>
         <input
           ref={inputRef}
@@ -206,7 +272,7 @@ export default function DiscoveryUploadWorkspace({
         </button>
       </div>
 
-      <p className={styles.supporting}>Accepted files: Excel, CSV, PDF, Word, zip, video, and common images. Native Google Sheet files need a share link or an export.</p>
+      <p className={styles.supporting}>Accepted files: Excel, CSV, PDF, Word, zip, Outlook/Apple Mail (.eml or .msg), video, and images. Native Google Sheet files need a share link or an export. The safest path for an email is paste it above, or save it as PDF.</p>
 
       {files.length > 0 ? (
         <ul className={styles.fileList} aria-live="polite">
