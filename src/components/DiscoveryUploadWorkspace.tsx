@@ -13,7 +13,7 @@ type LocalFile = {
   detail?: string;
 };
 
-export const DEFAULT_ACCEPTED_FILES = ".xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.txt,.rtf,.pdf,.docx,.doc,.docm,.dot,.dotx,.odt,.pages,.pptx,.ppt,.zip,.eml,.msg,.mbox,.mp4,.mov,.m4v,.webm,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.tif,.tiff,.bmp";
+export const DEFAULT_ACCEPTED_FILES = ".xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.txt,.rtf,.pdf,.docx,.doc,.docm,.dot,.dotx,.odt,.pages,.pptx,.ppt,.zip,.eml,.msg,.mbox,.mp4,.mov,.m4v,.webm,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.tif,.tiff,.bmp,.htm,.html";
 const GOOGLE_SHEET_HINT = "Google Sheets files cannot upload directly. Export as Excel or CSV, or paste the share link below.";
 
 export type DiscoveryUploadWorkspaceProps = {
@@ -386,7 +386,7 @@ export default function DiscoveryUploadWorkspace({
         </button>
       </div>
 
-      <p className={styles.supporting}>Accepted files: Excel, CSV, PDF, Word, zip, Outlook/Apple Mail (.eml or .msg), video, and images. Native Google Sheet files need a share link or an export. The safest path for an email is paste it above, or save it as PDF.</p>
+      <p className={styles.supporting}>Accepted files: Excel, CSV, PDF, Word, zip, Outlook/Apple Mail (.eml or .msg), HTML, video, and images. Native Google Sheet files need a share link or an export. The safest path for an email is paste it above, or save it as PDF.</p>
     </section>
   );
 }

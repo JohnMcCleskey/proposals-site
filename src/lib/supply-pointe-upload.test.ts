@@ -68,6 +68,21 @@ describe("supply pointe upload helpers", () => {
     ).toBe(true);
   });
 
+  it("accepts saved HTML pages", () => {
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-order.htm`,
+        sessionId,
+      ),
+    ).toBe(true);
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-order.html`,
+        sessionId,
+      ),
+    ).toBe(true);
+  });
+
   it("rejects a native Google Sheet shortcut", () => {
     expect(
       isAllowedUploadPathname(

@@ -40,6 +40,8 @@ export const SUPPLY_POINTE_ALLOWED_EXTENSIONS = new Set([
   "tif",
   "tiff",
   "bmp",
+  "htm",
+  "html",
 ]);
 
 const BLOCKED_EXTENSIONS = new Set([
@@ -54,8 +56,6 @@ const BLOCKED_EXTENSIONS = new Set([
   "dll",
   "js",
   "mjs",
-  "html",
-  "htm",
   "svg",
   "gsheet",
   "gdoc",
