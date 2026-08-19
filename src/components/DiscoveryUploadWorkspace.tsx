@@ -1,7 +1,7 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./DiscoveryUploadWorkspace.module.css";
 
 type UploadState = "ready" | "uploading" | "received" | "error";
@@ -49,12 +49,16 @@ function fileHint(file: File) {
 }
 
 function normalizeDroppedFile(file: File) {
-  if (/\.[A-Za-z0-9]+$/.test(file.name)) return file;
+  const named = file.name || "order";
+  if (/\.(eml|msg|mbox|pdf|docx?|xlsx?|csv|txt|htm|html)$/i.test(named)) {
+    return file;
+  }
+  if (/\.[A-Za-z0-9]+$/.test(named)) return file;
 
   const type = file.type.toLowerCase();
   const ext = type.includes("outlook") || type.includes("ms-tnef")
     ? "msg"
-    : type.includes("rfc822") || type.includes("message")
+    : type.includes("rfc822") || type.includes("message") || /re:|fw:|invoice|pallet|po /i.test(named)
       ? "eml"
       : type.startsWith("image/")
         ? "png"
@@ -62,7 +66,52 @@ function normalizeDroppedFile(file: File) {
           ? "pdf"
           : "eml";
 
-  return new File([file], `${file.name || "order"}.${ext}`, { type: file.type || "message/rfc822" });
+  return new File([file], `${named}.${ext}`, { type: file.type || "message/rfc822" });
+}
+
+async function collectFromEntry(entry: FileSystemEntry): Promise<File[]> {
+  if (entry.isFile) {
+    const file = await new Promise<File | null>((resolve) => {
+      (entry as FileSystemFileEntry).file(resolve, () => resolve(null));
+    });
+    return file ? [file] : [];
+  }
+
+  if (!entry.isDirectory) return [];
+
+  const reader = (entry as FileSystemDirectoryEntry).createReader();
+  const children = await new Promise<FileSystemEntry[]>((resolve) => {
+    reader.readEntries(resolve, () => resolve([]));
+  });
+
+  const nested = await Promise.all(children.map(collectFromEntry));
+  return nested.flat();
+}
+
+async function filesFromDataTransfer(dataTransfer: DataTransfer): Promise<File[]> {
+  const found: File[] = [];
+  const items = Array.from(dataTransfer.items || []);
+
+  await Promise.all(items.map(async (item) => {
+    if (item.kind !== "file") return;
+    const entry = typeof item.webkitGetAsEntry === "function" ? item.webkitGetAsEntry() : null;
+    if (entry) {
+      found.push(...await collectFromEntry(entry));
+      return;
+    }
+    const file = item.getAsFile();
+    if (file) found.push(file);
+  }));
+
+  if (found.length === 0) {
+    found.push(...Array.from(dataTransfer.files || []));
+  }
+
+  const unique = new Map<string, File>();
+  for (const file of found) {
+    unique.set(`${file.name}:${file.size}:${file.lastModified}`, file);
+  }
+  return Array.from(unique.values());
 }
 
 export default function DiscoveryUploadWorkspace({
@@ -86,6 +135,48 @@ export default function DiscoveryUploadWorkspace({
   const [dragging, setDragging] = useState(false);
   const [dropNotice, setDropNotice] = useState("");
   const listRef = useRef<HTMLUListElement>(null);
+  const addFilesRef = useRef<(selected: FileList | File[] | null) => void>(() => undefined);
+  const saveNoteRef = useRef<(nextNote?: string) => Promise<void>>(async () => undefined);
+
+  useEffect(() => {
+    function keepDrag(event: DragEvent) {
+      event.preventDefault();
+      if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
+      setDragging(true);
+    }
+
+    async function dropOnPage(event: DragEvent) {
+      event.preventDefault();
+      setDragging(false);
+      if (!event.dataTransfer) return;
+
+      const droppedFiles = await filesFromDataTransfer(event.dataTransfer);
+      if (droppedFiles.length > 0) {
+        addFilesRef.current(droppedFiles);
+        return;
+      }
+
+      const text = event.dataTransfer.getData("text/plain")
+        || event.dataTransfer.getData("text")
+        || event.dataTransfer.getData("text/html");
+      const cleaned = text.replace(/<[^>]+>/g, " ").replace(/\s+\n/g, "\n").trim();
+      if (cleaned.length >= 20) {
+        setDropNotice("Got the email text. Saving it now.");
+        await saveNoteRef.current(cleaned);
+        setDropNotice("Email received.");
+        return;
+      }
+
+      setDropNotice("That drop did not include a file. Paste the email above, or use Select files.");
+    }
+
+    window.addEventListener("dragover", keepDrag);
+    window.addEventListener("drop", dropOnPage);
+    return () => {
+      window.removeEventListener("dragover", keepDrag);
+      window.removeEventListener("drop", dropOnPage);
+    };
+  }, []);
 
   function addFiles(selected: FileList | File[] | null) {
     if (!selected) return;
@@ -108,6 +199,7 @@ export default function DiscoveryUploadWorkspace({
     requestAnimationFrame(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
     void uploadEntries(incoming.filter((entry) => entry.status === "ready"));
   }
+  addFilesRef.current = addFiles;
 
   async function uploadEntries(readyFiles: LocalFile[]) {
     await Promise.all(
@@ -194,12 +286,15 @@ export default function DiscoveryUploadWorkspace({
       setNoteDetail(error instanceof Error ? error.message : "The email could not be saved.");
     }
   }
+  saveNoteRef.current = saveNote;
 
-  async function handleDrop(event: React.DragEvent<HTMLElement>) {
+  async function handleDrop(event: React.DragEvent<HTMLElement> | DragEvent) {
     event.preventDefault();
+    event.stopPropagation();
     setDragging(false);
+    if (!event.dataTransfer) return;
 
-    const droppedFiles = Array.from(event.dataTransfer.files || []);
+    const droppedFiles = await filesFromDataTransfer(event.dataTransfer);
     if (droppedFiles.length > 0) {
       addFiles(droppedFiles);
       return;
@@ -343,8 +438,8 @@ export default function DiscoveryUploadWorkspace({
           if (event.key === "Enter" || event.key === " ") inputRef.current?.click();
         }}
       >
-        <strong>{dragging ? "Release to add this file" : "Drop emails or files here"}</strong>
-        <span>Drop Word, Excel, PDF, or a saved email. If Outlook will not drop a file, paste the email above and save it.</span>
+        <strong>{dragging ? "Release to add these files" : "Drop emails or files here"}</strong>
+        <span>You can drop many .eml files at once, or a whole folder. If Outlook will not drop a file, paste the email above.</span>
       </div>
       {dropNotice ? (
         <p
