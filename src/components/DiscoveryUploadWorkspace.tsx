@@ -23,6 +23,7 @@ export type DiscoveryUploadWorkspaceProps = {
   shareLinkUrl: string;
   noteUrl?: string;
   materials: string[];
+  received?: string[];
   guidance?: string[];
 };
 
@@ -71,6 +72,7 @@ export default function DiscoveryUploadWorkspace({
   shareLinkUrl,
   noteUrl,
   materials,
+  received,
   guidance,
 }: DiscoveryUploadWorkspaceProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -265,8 +267,15 @@ export default function DiscoveryUploadWorkspace({
         </div>
       ) : null}
 
+      {received && received.length > 0 ? (
+        <div className={styles.requested}>
+          <h3>Already received</h3>
+          <ul>{received.map((item) => <li key={item}>{item}</li>)}</ul>
+        </div>
+      ) : null}
+
       <div className={styles.requested}>
-        <h3>Requested materials</h3>
+        <h3>{received && received.length > 0 ? "Still helpful" : "Requested materials"}</h3>
         <ul>{materials.map((material) => <li key={material}>{material}</li>)}</ul>
       </div>
 
