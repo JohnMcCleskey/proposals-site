@@ -4,7 +4,6 @@ import { requirePaidSupplyPointeSession } from "@/lib/supply-pointe-session";
 import {
   getUploadSessionId,
   isAllowedUploadPathname,
-  SUPPLY_POINTE_ALLOWED_CONTENT_TYPES,
 } from "@/lib/supply-pointe-upload";
 
 export async function POST(request: Request) {
@@ -19,11 +18,10 @@ export async function POST(request: Request) {
         const sessionId = await requirePaidSupplyPointeSession(suppliedSessionId);
 
         if (!isAllowedUploadPathname(pathname, sessionId)) {
-          throw new Error("That file type is not accepted. Export Google Sheets as Excel or CSV, or paste a share link.");
+          throw new Error("That file type is not accepted. Use Word, Excel, PDF, email, or paste a Google link.");
         }
 
         return {
-          allowedContentTypes: SUPPLY_POINTE_ALLOWED_CONTENT_TYPES,
           addRandomSuffix: true,
           allowOverwrite: false,
           maximumSizeInBytes: 500 * 1024 * 1024,

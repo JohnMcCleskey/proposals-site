@@ -3,13 +3,25 @@ export const SUPPLY_POINTE_ALLOWED_EXTENSIONS = new Set([
   "xlsm",
   "xlsb",
   "xls",
+  "xltx",
   "ods",
   "csv",
   "tsv",
   "txt",
+  "rtf",
   "pdf",
   "docx",
   "doc",
+  "docm",
+  "dot",
+  "dotx",
+  "dotm",
+  "odt",
+  "pages",
+  "pptx",
+  "ppt",
+  "pptm",
+  "key",
   "zip",
   "eml",
   "msg",
@@ -30,28 +42,26 @@ export const SUPPLY_POINTE_ALLOWED_EXTENSIONS = new Set([
   "bmp",
 ]);
 
-export const SUPPLY_POINTE_ALLOWED_CONTENT_TYPES = [
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  "application/vnd.ms-excel",
-  "application/vnd.ms-excel.sheet.macroEnabled.12",
-  "application/vnd.ms-excel.sheet.binary.macroEnabled.12",
-  "application/vnd.oasis.opendocument.spreadsheet",
-  "text/csv",
-  "text/tab-separated-values",
-  "text/plain",
-  "application/pdf",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "application/msword",
-  "application/zip",
-  "message/rfc822",
-  "application/vnd.ms-outlook",
-  "application/octet-stream",
-  "video/mp4",
-  "video/quicktime",
-  "video/x-m4v",
-  "video/webm",
-  "image/*",
-];
+const BLOCKED_EXTENSIONS = new Set([
+  "exe",
+  "bat",
+  "cmd",
+  "com",
+  "scr",
+  "ps1",
+  "sh",
+  "msi",
+  "dll",
+  "js",
+  "mjs",
+  "html",
+  "htm",
+  "svg",
+  "gsheet",
+  "gdoc",
+  "gslides",
+  "slink",
+]);
 
 const SHARE_HOSTS = new Set([
   "docs.google.com",
@@ -94,6 +104,7 @@ export function isAllowedUploadPathname(pathname: string, sessionId: string): bo
   const extension = filename.slice(lastDot + 1).toLowerCase();
 
   if (name.length === 0 || !/^[a-zA-Z0-9_-]+$/.test(name)) return false;
+  if (BLOCKED_EXTENSIONS.has(extension)) return false;
   return SUPPLY_POINTE_ALLOWED_EXTENSIONS.has(extension);
 }
 

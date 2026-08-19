@@ -13,7 +13,7 @@ type LocalFile = {
   detail?: string;
 };
 
-export const DEFAULT_ACCEPTED_FILES = ".xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.txt,.pdf,.docx,.doc,.zip,.eml,.msg,.mbox,.mp4,.mov,.m4v,.webm,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.tif,.tiff,.bmp";
+export const DEFAULT_ACCEPTED_FILES = ".xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.txt,.rtf,.pdf,.docx,.doc,.docm,.dot,.dotx,.odt,.pages,.pptx,.ppt,.zip,.eml,.msg,.mbox,.mp4,.mov,.m4v,.webm,.jpg,.jpeg,.png,.gif,.webp,.heic,.heif,.tif,.tiff,.bmp";
 const GOOGLE_SHEET_HINT = "Google Sheets files cannot upload directly. Export as Excel or CSV, or paste the share link below.";
 
 export type DiscoveryUploadWorkspaceProps = {
@@ -85,25 +85,21 @@ export default function DiscoveryUploadWorkspace({
 
   function addFiles(selected: FileList | File[] | null) {
     if (!selected) return;
-    const incoming = Array.from(selected).map(normalizeDroppedFile);
+    const incoming = Array.from(selected).map(normalizeDroppedFile).map((file) => {
+      const hint = fileHint(file);
+      return {
+        id: crypto.randomUUID(),
+        file,
+        status: hint ? "error" as const : "ready" as const,
+        detail: hint || undefined,
+      };
+    });
 
-    setFiles((current) => [
-      ...current,
-      ...incoming.map((file) => {
-        const hint = fileHint(file);
-        return {
-          id: crypto.randomUUID(),
-          file,
-          status: hint ? "error" as const : "ready" as const,
-          detail: hint || undefined,
-        };
-      }),
-    ]);
+    setFiles((current) => [...current, ...incoming]);
+    void uploadEntries(incoming.filter((entry) => entry.status === "ready"));
   }
 
-  async function uploadReadyFiles() {
-    const readyFiles = files.filter(({ status }) => status === "ready");
-
+  async function uploadEntries(readyFiles: LocalFile[]) {
     await Promise.all(
       readyFiles.map(async ({ id, file }) => {
         setFiles((current) =>
@@ -127,7 +123,7 @@ export default function DiscoveryUploadWorkspace({
         } catch (error) {
           const detail = error instanceof Error && error.message
             ? error.message
-            : "Upload failed. Export the sheet as Excel/CSV or paste a share link.";
+            : "Upload failed. Try Word/PDF, or paste the text in the email box.";
           setFiles((current) =>
             current.map((entry) =>
               entry.id === id ? { ...entry, status: "error", detail } : entry,
@@ -136,6 +132,10 @@ export default function DiscoveryUploadWorkspace({
         }
       }),
     );
+  }
+
+  async function uploadReadyFiles() {
+    await uploadEntries(files.filter(({ status }) => status === "ready"));
   }
 
   async function saveShareLink() {
@@ -313,7 +313,7 @@ export default function DiscoveryUploadWorkspace({
         }}
       >
         <strong>Drop emails or files here</strong>
-        <span>Outlook often will not export a file. If the drop does nothing, paste the email in the box above, then save it. Then click Upload selected files.</span>
+        <span>Drop Word, Excel, PDF, or a saved email. If Outlook will not drop a file, paste the email above and save it.</span>
       </div>
       <div className={styles.actions}>
         <input

@@ -32,6 +32,27 @@ describe("supply pointe upload helpers", () => {
     ).toBe(true);
   });
 
+  it("accepts Word documents operators actually send", () => {
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-packing-slip.docx`,
+        sessionId,
+      ),
+    ).toBe(true);
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-letter.doc`,
+        sessionId,
+      ),
+    ).toBe(true);
+    expect(
+      isAllowedUploadPathname(
+        `supply-pointe/${sessionId}/abc-letter.docm`,
+        sessionId,
+      ),
+    ).toBe(true);
+  });
+
   it("accepts saved Outlook and Apple Mail emails", () => {
     expect(
       isAllowedUploadPathname(
