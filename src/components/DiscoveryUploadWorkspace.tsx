@@ -82,6 +82,8 @@ export default function DiscoveryUploadWorkspace({
   const [noteStatus, setNoteStatus] = useState<"idle" | "saving" | "received" | "error">("idle");
   const [noteDetail, setNoteDetail] = useState("");
   const [dragging, setDragging] = useState(false);
+  const [dropNotice, setDropNotice] = useState("");
+  const listRef = useRef<HTMLUListElement>(null);
 
   function addFiles(selected: FileList | File[] | null) {
     if (!selected) return;
@@ -96,6 +98,12 @@ export default function DiscoveryUploadWorkspace({
     });
 
     setFiles((current) => [...current, ...incoming]);
+    setDropNotice(
+      incoming.length === 1
+        ? `Got it: ${incoming[0].file.name}. Uploading now.`
+        : `Got ${incoming.length} files. Uploading now.`,
+    );
+    requestAnimationFrame(() => listRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
     void uploadEntries(incoming.filter((entry) => entry.status === "ready"));
   }
 
@@ -120,6 +128,7 @@ export default function DiscoveryUploadWorkspace({
               entry.id === id ? { ...entry, status: "received" } : entry,
             ),
           );
+          setDropNotice(`Received: ${file.name}`);
         } catch (error) {
           const detail = error instanceof Error && error.message
             ? error.message
@@ -200,10 +209,23 @@ export default function DiscoveryUploadWorkspace({
     const cleaned = text.replace(/<[^>]+>/g, " ").replace(/\s+\n/g, "\n").trim();
     if (cleaned.length >= 20 && noteUrl) {
       setNote(cleaned);
+      setDropNotice("Got the email text. Saving it now.");
       await saveNote(cleaned);
+      setDropNotice("Email received.");
+      return;
     }
+
+    setDropNotice("That drop did not include a file. Paste the email above, or use Select files.");
   }
 
+  function statusLabel(status: UploadState) {
+    if (status === "ready") return "Queued";
+    if (status === "uploading") return "Uploading";
+    if (status === "received") return "Received";
+    return "Could not save";
+  }
+
+  const receivedCount = files.filter(({ status }) => status === "received").length;
   const hasReadyFiles = files.some(({ status }) => status === "ready");
   const isUploading = files.some(({ status }) => status === "uploading");
 
@@ -312,9 +334,33 @@ export default function DiscoveryUploadWorkspace({
           if (event.key === "Enter" || event.key === " ") inputRef.current?.click();
         }}
       >
-        <strong>Drop emails or files here</strong>
+        <strong>{dragging ? "Release to add this file" : "Drop emails or files here"}</strong>
         <span>Drop Word, Excel, PDF, or a saved email. If Outlook will not drop a file, paste the email above and save it.</span>
       </div>
+      {dropNotice ? (
+        <p
+          className={dropNotice.startsWith("That drop") ? styles.errorBanner : styles.notice}
+          role="status"
+        >
+          {dropNotice}
+        </p>
+      ) : null}
+      {files.length > 0 ? (
+        <ul className={styles.fileList} aria-live="polite" ref={listRef}>
+          {files.map(({ id, file, status, detail }) => (
+            <li key={id}>
+              <span>
+                {file.name}
+                {detail ? <em className={styles.errorText}>{detail}</em> : null}
+              </span>
+              <strong data-status={status}>{statusLabel(status)}</strong>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {receivedCount > 0 ? (
+        <p className={styles.notice}>{receivedCount === 1 ? "1 file received." : `${receivedCount} files received.`}</p>
+      ) : null}
       <div className={styles.actions}>
         <input
           ref={inputRef}
@@ -341,20 +387,6 @@ export default function DiscoveryUploadWorkspace({
       </div>
 
       <p className={styles.supporting}>Accepted files: Excel, CSV, PDF, Word, zip, Outlook/Apple Mail (.eml or .msg), video, and images. Native Google Sheet files need a share link or an export. The safest path for an email is paste it above, or save it as PDF.</p>
-
-      {files.length > 0 ? (
-        <ul className={styles.fileList} aria-live="polite">
-          {files.map(({ id, file, status, detail }) => (
-            <li key={id}>
-              <span>
-                {file.name}
-                {detail ? <em className={styles.errorText}>{detail}</em> : null}
-              </span>
-              <strong data-status={status}>{status}</strong>
-            </li>
-          ))}
-        </ul>
-      ) : null}
     </section>
   );
 }
