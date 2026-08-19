@@ -47,6 +47,23 @@ function fileHint(file: File) {
   return "";
 }
 
+function normalizeDroppedFile(file: File) {
+  if (/\.[A-Za-z0-9]+$/.test(file.name)) return file;
+
+  const type = file.type.toLowerCase();
+  const ext = type.includes("outlook") || type.includes("ms-tnef")
+    ? "msg"
+    : type.includes("rfc822") || type.includes("message")
+      ? "eml"
+      : type.startsWith("image/")
+        ? "png"
+        : type === "application/pdf"
+          ? "pdf"
+          : "eml";
+
+  return new File([file], `${file.name || "order"}.${ext}`, { type: file.type || "message/rfc822" });
+}
+
 export default function DiscoveryUploadWorkspace({
   sessionId,
   pathPrefix,
@@ -64,13 +81,15 @@ export default function DiscoveryUploadWorkspace({
   const [note, setNote] = useState("");
   const [noteStatus, setNoteStatus] = useState<"idle" | "saving" | "received" | "error">("idle");
   const [noteDetail, setNoteDetail] = useState("");
+  const [dragging, setDragging] = useState(false);
 
-  function addFiles(selected: FileList | null) {
+  function addFiles(selected: FileList | File[] | null) {
     if (!selected) return;
+    const incoming = Array.from(selected).map(normalizeDroppedFile);
 
     setFiles((current) => [
       ...current,
-      ...Array.from(selected).map((file) => {
+      ...incoming.map((file) => {
         const hint = fileHint(file);
         return {
           id: crypto.randomUUID(),
@@ -141,8 +160,9 @@ export default function DiscoveryUploadWorkspace({
     }
   }
 
-  async function saveNote() {
+  async function saveNote(nextNote?: string) {
     if (!noteUrl) return;
+    const bodyNote = (nextNote ?? note).trim();
     setNoteStatus("saving");
     setNoteDetail("");
 
@@ -150,7 +170,7 @@ export default function DiscoveryUploadWorkspace({
       const response = await fetch(noteUrl, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ sessionId, note }),
+        body: JSON.stringify({ sessionId, note: bodyNote }),
       });
       const result = (await response.json()) as { status?: string; error?: string };
       if (!response.ok || result.status !== "received") {
@@ -164,11 +184,47 @@ export default function DiscoveryUploadWorkspace({
     }
   }
 
+  async function handleDrop(event: React.DragEvent<HTMLElement>) {
+    event.preventDefault();
+    setDragging(false);
+
+    const droppedFiles = Array.from(event.dataTransfer.files || []);
+    if (droppedFiles.length > 0) {
+      addFiles(droppedFiles);
+      return;
+    }
+
+    const text = event.dataTransfer.getData("text/plain")
+      || event.dataTransfer.getData("text")
+      || event.dataTransfer.getData("text/html");
+    const cleaned = text.replace(/<[^>]+>/g, " ").replace(/\s+\n/g, "\n").trim();
+    if (cleaned.length >= 20 && noteUrl) {
+      setNote(cleaned);
+      await saveNote(cleaned);
+    }
+  }
+
   const hasReadyFiles = files.some(({ status }) => status === "ready");
   const isUploading = files.some(({ status }) => status === "uploading");
 
   return (
-    <section className={styles.workspace} aria-labelledby="materials-heading">
+    <section
+      className={`${styles.workspace}${dragging ? ` ${styles.dragging}` : ""}`}
+      aria-labelledby="materials-heading"
+      onDragEnter={(event) => {
+        event.preventDefault();
+        setDragging(true);
+      }}
+      onDragOver={(event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "copy";
+      }}
+      onDragLeave={(event) => {
+        if (event.currentTarget.contains(event.relatedTarget as Node)) return;
+        setDragging(false);
+      }}
+      onDrop={(event) => void handleDrop(event)}
+    >
       <div className={styles.intro}>
         <div>
           <p className={styles.label}>Private material workspace</p>
@@ -247,6 +303,18 @@ export default function DiscoveryUploadWorkspace({
         </>
       ) : null}
 
+      <div
+        className={styles.dropZone}
+        role="button"
+        tabIndex={0}
+        onClick={() => inputRef.current?.click()}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") inputRef.current?.click();
+        }}
+      >
+        <strong>Drop emails or files here</strong>
+        <span>Outlook often will not export a file. If the drop does nothing, paste the email in the box above, then save it. Then click Upload selected files.</span>
+      </div>
       <div className={styles.actions}>
         <input
           ref={inputRef}
