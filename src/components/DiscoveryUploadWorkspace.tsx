@@ -22,6 +22,8 @@ export type DiscoveryUploadWorkspaceProps = {
   handleUploadUrl: string;
   shareLinkUrl: string;
   noteUrl?: string;
+  noteLabel?: string;
+  notePlaceholder?: string;
   materials: string[];
   received?: string[];
   guidance?: string[];
@@ -120,6 +122,8 @@ export default function DiscoveryUploadWorkspace({
   handleUploadUrl,
   shareLinkUrl,
   noteUrl,
+  noteLabel = "Paste a real order email",
+  notePlaceholder = "From: customer@…\nNeed 12 small furniture pallets to the usual dock…",
   materials,
   received,
   guidance,
@@ -237,10 +241,6 @@ export default function DiscoveryUploadWorkspace({
     );
   }
 
-  async function uploadReadyFiles() {
-    await uploadEntries(files.filter(({ status }) => status === "ready"));
-  }
-
   async function saveShareLink() {
     setShareStatus("saving");
     setShareDetail("");
@@ -323,8 +323,6 @@ export default function DiscoveryUploadWorkspace({
   }
 
   const receivedCount = files.filter(({ status }) => status === "received").length;
-  const hasReadyFiles = files.some(({ status }) => status === "ready");
-  const isUploading = files.some(({ status }) => status === "uploading");
 
   return (
     <section
@@ -403,12 +401,12 @@ export default function DiscoveryUploadWorkspace({
       {noteUrl ? (
         <>
           <label className={styles.shareLabel} htmlFor="order-email">
-            Paste a real order email
+            {noteLabel}
             <textarea
               id="order-email"
               className={styles.shareInput}
               rows={8}
-              placeholder="From: customer@…&#10;Need 12 small furniture pallets to the usual dock…"
+              placeholder={notePlaceholder}
               value={note}
               onChange={(event) => {
                 setNote(event.target.value);
@@ -480,17 +478,9 @@ export default function DiscoveryUploadWorkspace({
         <button className={styles.selectButton} type="button" onClick={() => inputRef.current?.click()}>
           Select files
         </button>
-        <button
-          className={styles.uploadButton}
-          type="button"
-          disabled={!hasReadyFiles || isUploading}
-          onClick={() => void uploadReadyFiles()}
-        >
-          {isUploading ? "Uploading materials" : "Upload selected files"}
-        </button>
       </div>
 
-      <p className={styles.supporting}>Accepted files: Excel, CSV, PDF, Word, zip, Outlook/Apple Mail (.eml or .msg), HTML, video, and images. Native Google Sheet files need a share link or an export. The safest path for an email is paste it above, or save it as PDF.</p>
+      <p className={styles.supporting}>Files upload automatically after you drop or select them. Accepted: Excel/CSV, PDF, Word, saved email, QuickBooks screenshots/exports, video, and images. Native Google Sheets need a share link or Excel/CSV export. Never upload passwords, login details, or API keys.</p>
     </section>
   );
 }
