@@ -9,6 +9,7 @@ import Deliverables from "@/components/Deliverables";
 import WhenWeBuild from "@/components/WhenWeBuild";
 import FamilyBento from "@/components/FamilyBento";
 import WhoItsFor from "@/components/WhoItsFor";
+import Operator from "@/components/Operator";
 import Guardrails from "@/components/Guardrails";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -28,6 +29,7 @@ export default function HomePage() {
         <WhenWeBuild />
         <FamilyBento />
         <WhoItsFor />
+        <Operator />
         <Guardrails />
         <FinalCTA />
       </main>

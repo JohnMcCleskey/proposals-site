@@ -1,5 +1,5 @@
 import Wordmark from "@/components/Wordmark";
-import { CAL_URL, CONTACT_EMAIL, DIAGNOSTIC_URL, FAMILY } from "@/lib/site";
+import { CAL_URL, CONTACT_EMAIL, DIAGNOSTIC_URL, FAMILY, LINKEDIN_COMPANY_URL, LINKEDIN_PERSONAL_URL } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -20,6 +20,14 @@ export default function Footer() {
               className="mt-4 inline-block text-[0.9rem] text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ember"
             >
               {CONTACT_EMAIL}
+            </a>
+            <a
+              href={LINKEDIN_PERSONAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2.5 block text-[0.9rem] text-ink-mute underline decoration-ink/20 underline-offset-4 transition-colors hover:text-ink hover:decoration-ember"
+            >
+              John McCleskey, founder &#8599;
             </a>
           </div>
 
@@ -70,6 +78,16 @@ export default function Footer() {
               <li>
                 <a href="/ai" className="text-ink/75 transition-colors hover:text-ink">
                   Agent interface
+                </a>
+              </li>
+              <li>
+                <a
+                  href={LINKEDIN_COMPANY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink/75 transition-colors hover:text-ink"
+                >
+                  StoneWave on LinkedIn &#8599;
                 </a>
               </li>
             </ul>

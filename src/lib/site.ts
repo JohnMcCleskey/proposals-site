@@ -3,6 +3,8 @@
 export const DIAGNOSTIC_URL = "https://provableoutcomes.ai/diagnostic";
 export const CAL_URL = "https://cal.com/john-mccleskey/15min";
 export const CONTACT_EMAIL = "ops@stonewave.life";
+export const LINKEDIN_PERSONAL_URL = "https://www.linkedin.com/in/john-mccleskey/";
+export const LINKEDIN_COMPANY_URL = "https://www.linkedin.com/company/stonewave-life";
 
 export const NAV_ITEMS = [
   { label: "Method", href: "#method" },
