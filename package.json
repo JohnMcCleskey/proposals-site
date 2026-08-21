@@ -5,23 +5,30 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest run --config vitest.config.mts"
   },
   "dependencies": {
+    "@google/genai": "^2.17.1",
+    "@vercel/blob": "^2.8.0",
     "autoprefixer": "^10.5.4",
     "geist": "^1.7.2",
     "gsap": "^3.12.5",
     "motion": "^13.0.0",
-    "next": "^14.2.0",
+    "next": "15.5.21",
     "postcss": "^8.5.26",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
+    "stripe": "^17.7.0",
     "tailwindcss": "3.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "typescript": "^5"
+    "eslint": "9.39.5",
+    "eslint-config-next": "15.5.21",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }
