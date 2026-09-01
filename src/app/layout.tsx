@@ -24,9 +24,9 @@ const FAMILY_URLS = [
 ];
 
 export const metadata: Metadata = {
-  title: "StoneWave. Clarity before technology.",
+  title: "StoneWave. Your mental capacity is still the bottleneck.",
   description:
-    "StoneWave helps owner-led companies find where value is stuck, make the smallest high-leverage changes, and prove what improved against a baseline.",
+    "StoneWave helps owner-led companies whose work still lives in one head. We find the repeatable drains, put help under them, and leave you the decisions.",
   keywords: [
     "business diagnostic",
     "operations improvement",
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   authors: [{ name: "StoneWave" }],
   metadataBase: new URL(SITE),
   openGraph: {
-    title: "StoneWave. Clarity before technology.",
+    title: "StoneWave. Your mental capacity is still the bottleneck.",
     description:
-      "Know what to improve. Prove it moved. Diagnosis first, recommendations independent of what you buy, and a retest against baseline.",
+      "The work only moves when you remember to push it. We find what repeats, put help under it, and you still approve anything that sends or spends.",
     url: SITE,
     siteName: "StoneWave",
     locale: "en_US",
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
   twitter: {
     // summary until the 1200x630 OG image ships (see docs/redesign-notes.md)
     card: "summary",
-    title: "StoneWave. Clarity before technology.",
+    title: "StoneWave. Your mental capacity is still the bottleneck.",
     description:
-      "We diagnose where value is stuck, recommend the smallest high-leverage changes, and prove what improved.",
+      "Less drain. More of you left for the work that actually matters. A short private diagnostic, nothing to buy at the end.",
   },
   alternates: { canonical: SITE },
   robots: { index: true, follow: true },

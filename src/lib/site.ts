@@ -7,10 +7,9 @@ export const LINKEDIN_PERSONAL_URL = "https://www.linkedin.com/in/john-mccleskey
 export const LINKEDIN_COMPANY_URL = "https://www.linkedin.com/company/stonewave-life";
 
 export const NAV_ITEMS = [
-  { label: "Method", href: "#method" },
-  { label: "Proof", href: "#proof" },
-  { label: "Work", href: "#work" },
-  { label: "Family", href: "#family" },
+  { label: "Story", href: "#story" },
+  { label: "Details", href: "#details" },
+  { label: "John", href: "#operator" },
 ] as const;
 
 export type FamilySurface = {

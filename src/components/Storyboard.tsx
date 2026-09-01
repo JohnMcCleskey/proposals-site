@@ -331,66 +331,59 @@ function VignettePayoff() {
 const BEATS: Beat[] = [
   {
     id: "mess",
-    label: "The starting point",
-    title: "The week disappears into handoffs.",
+    label: "The week now",
+    title: "Everything still waits on you.",
     line:
-      "Quotes wait on someone's phone. Answers live in three inboxes. Nobody is lazy. The route is just long.",
+      "Same facts live in a form, a thread, a spreadsheet. Friday only works if you are around.",
     visual: <VignetteMess />,
   },
   {
     id: "diagnostic",
-    label: "The diagnostic",
-    title: "A quiet look under the hood.",
-    line:
-      "Eight to twelve minutes of plain questions about how work actually moves. Private, and nothing to buy at the end.",
+    label: "A quiet look",
+    title: "A few plain questions about where work actually gets stuck.",
+    line: "Private. Nothing to buy.",
     visual: <VignetteDiagnostic />,
   },
   {
     id: "brief",
-    label: "The brief",
-    title: "Findings, ranked by leverage.",
-    line:
-      "Not a list of everything wrong. The two or three changes worth doing first, with readiness spelled out.",
+    label: "What is worth touching",
+    title: "Two or three drains, not a list of everything wrong.",
+    line: "Most first changes do not require buying anything.",
     visual: <VignetteBrief />,
   },
   {
     id: "recs",
-    label: "The recommendation",
-    title: "Three lanes. One honest ranking.",
-    line:
-      "Do it yourselves, have us implement, or add a tool where process alone stalls. The advice does not change with the invoice.",
+    label: "Your call on how",
+    title: "You can do it, we can put help under it, or a tool can come in only if it earns its place.",
+    line: "The ranking does not change with the invoice.",
     visual: <VignetteRecs />,
   },
   {
     id: "adoption",
-    label: "The adoption",
-    title: "What you actually did, logged.",
-    line:
-      "Small changes, owned by named people. The retest will only score what made it into the routine.",
+    label: "What actually stuck",
+    title: "Small changes, named people, in the routine.",
+    line: "We only count what lasted.",
     visual: <VignetteAdoption />,
   },
   {
     id: "retest",
-    label: "The retest",
-    title: "Same questions. New numbers.",
-    line:
-      "The baseline was the promise. The retest is the receipt: time, margin, quality, risk, measured the same way twice.",
+    label: "The week again",
+    title: "Same questions as the start.",
+    line: "Did it still need you to remember?",
     visual: <VignetteRetest />,
   },
   {
     id: "gate",
-    label: "The gate",
-    title: "A person approves the consequential stuff.",
-    line:
-      "Drafts wait for judgment. No autonomous outbound, no purchases on your behalf, no exceptions.",
+    label: "You still decide",
+    title: "Nothing sends or spends without you.",
+    line: "That does not change.",
     visual: <VignetteApproval />,
   },
   {
     id: "payoff",
-    label: "The payoff",
-    title: "Time back, and proof in hand.",
-    line:
-      "Reclaimed hours, cleaner decisions, and one page a skeptical partner can check for themselves.",
+    label: "More of you left",
+    title: "More of the week for judgment and relationships.",
+    line: "Less for chasing and retyping.",
     visual: <VignettePayoff />,
   },
 ];
@@ -542,7 +535,7 @@ export default function Storyboard() {
   }, []);
 
   return (
-    <section id="story" aria-label="The proof story" className="ink-surface relative">
+    <section id="story" aria-label="How the week can change" className="ink-surface relative">
       <div ref={wrapRef} className={pinned ? "" : "storyboard-static"}>
         <div
           ref={stageRef}
@@ -556,9 +549,9 @@ export default function Storyboard() {
           <div className="mx-auto w-full max-w-wrap px-5 pt-20 sm:px-8 lg:pt-24">
             <div className="flex items-end justify-between gap-6">
               <div>
-                <p className="eyebrow text-ember">The proof story</p>
-                <h2 className="font-display mt-4 max-w-[24ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-paper sm:text-[2.5rem]">
-                  From stuck to measured, in one arc.
+                <p className="eyebrow text-ember">The week, after</p>
+                <h2 className="font-display mt-4 max-w-[28ch] text-balance text-[1.9rem] font-medium leading-[1.12] text-paper sm:text-[2.5rem]">
+                  Here is what that looks like when the week is no longer waiting on you to remember.
                 </h2>
               </div>
               {pinned && (
@@ -625,13 +618,13 @@ export default function Storyboard() {
         <div className="mx-auto w-full max-w-wrap px-5 py-8 sm:px-8">
           <p className="eyebrow mb-3 text-paper/55">The story in one paragraph</p>
           <p className="max-w-[62ch] text-[0.9rem] leading-relaxed text-paper/55">
-            Work gets stuck in handoffs. A short private diagnostic maps where.
-            You get a brief with findings ranked by leverage, and
-            recommendations that stay the same whether you do it yourself, have
-            us implement, or add a tool. What you adopt gets logged. A retest
-            against the original baseline shows what actually moved. People
-            approve anything consequential, and you keep one page of proof.
-            Figures shown are an illustrative scenario.
+            The company still lives in one head. A short private diagnostic
+            finds the repeatable drains. You get two or three things worth
+            touching, and you choose whether to do them yourself, have us put
+            help under them, or add a tool only if it earns its place. What
+            lasts gets counted. You still approve anything that sends or
+            spends. The point is more of you left for judgment and
+            relationships.
           </p>
         </div>
       </div>

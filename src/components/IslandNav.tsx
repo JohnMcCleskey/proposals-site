@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Wordmark from "@/components/Wordmark";
@@ -26,10 +27,11 @@ export default function IslandNav() {
     document.body.style.overflow = "hidden";
     // Move focus into the menu; hand it back to the toggle on close.
     panelRef.current?.querySelector("a")?.focus();
+    const toggleButton = toggleRef.current;
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
-      toggleRef.current?.focus();
+      toggleButton?.focus();
     };
   }, [open]);
 
@@ -58,7 +60,7 @@ export default function IslandNav() {
               : "border-paper/15 bg-ink/35"
           }`}
         >
-          <a
+          <Link
             href="/"
             className={`flex shrink-0 items-center gap-2.5 rounded-full py-1 pl-1.5 pr-2 font-display text-[1.05rem] font-semibold tracking-tight transition-colors duration-500 ${
               scrolled ? "text-ink" : "text-paper"
@@ -66,7 +68,7 @@ export default function IslandNav() {
           >
             <Wordmark size={24} onInk={!scrolled} />
             StoneWave
-          </a>
+          </Link>
 
           <div className="hidden items-center gap-1 md:flex">
             {NAV_ITEMS.map((item) => (

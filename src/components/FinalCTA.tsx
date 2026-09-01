@@ -22,17 +22,17 @@ export default function FinalCTA() {
         <Reveal>
           <p className="eyebrow text-ember">Start here</p>
           <h2 className="font-display mx-auto mt-5 max-w-[20ch] text-balance text-[2.1rem] font-medium leading-[1.1] text-paper sm:text-[3rem]">
-            Find where improvement is actually worth the investment.
+            Take eight minutes. See where the week is stuck.
           </h2>
           <p className="mx-auto mt-6 max-w-[44ch] text-pretty text-[1rem] leading-relaxed text-paper/65">
-            Eight to twelve minutes of plain questions. You get the ranked
-            findings either way, and nothing is pitched inside.
+            Plain questions, in private. You get the ranked findings either
+            way, and nothing is pitched inside.
           </p>
         </Reveal>
         <Reveal delay={140}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <MagneticButton href={DIAGNOSTIC_URL} external variant="primary">
-              Start the diagnostic
+              Take the diagnostic
               <span aria-hidden="true" className="transition-transform duration-300 ease-swift group-hover:translate-x-0.5">
                 &rarr;
               </span>
