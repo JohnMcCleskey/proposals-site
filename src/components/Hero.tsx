@@ -59,9 +59,9 @@ export default function Hero() {
           className="rise mt-5 max-w-[36rem] text-pretty text-[1.02rem] leading-relaxed text-paper/65"
           style={d(0.36)}
         >
-          We find the work that repeats, teach it to a system, and leave your
-          capacity for the decisions. Drafts, sends, and spend still wait for a
-          person.
+          We find the work that repeats, teach it to a system, and tee up the
+          drafts so the week does not wait on you to remember. Sends and spend
+          still wait for a person.
         </p>
 
         <ul

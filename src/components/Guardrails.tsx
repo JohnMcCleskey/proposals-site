@@ -14,7 +14,7 @@ const GUARDRAILS = [
   {
     rule: "A human approves consequential actions",
     detail:
-      "Drafts wait for sign-off. Nothing sends outbound, spends money, or commits you without a person deciding it should.",
+      "We prepare the drafts. Nothing sends outbound, spends money, or commits you without a person deciding it should.",
   },
   {
     rule: "No autonomous purchases, ever",
