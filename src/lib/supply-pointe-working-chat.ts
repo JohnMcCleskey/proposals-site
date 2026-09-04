@@ -29,12 +29,7 @@ Host: private hosted desk; backups and a dated restore drill before live files; 
 Maintain: fixes, monitoring, rule improvements inside the monthly.
 
 Proposed tools (subject to the Gate)
-- Railway: long-running Python order desk (same class as the current sample host).
-- Vercel / stonewave.life: this private review page only.
-- Models when live: Anthropic Claude, with OpenAI and Ollama cloud as fallbacks, on Supply Pointe-owned keys after Brian approves processors in writing. Sample desk today uses StoneWave keys.
-- QuickBooks: create only after Brian approves, and only after the Activation Gate — not in the first live week unless he writes yes.
-- Their existing email stays theirs. Inbox watching is the later add-on.
-StoneWave does not inherit a vendor's SOC 2 or call this bank-grade.
+The live desk is a hosted private process plus models you approve in writing, plus your QuickBooks and your email. Named users and backups are part of the Activation Gate, not extra products. Identity platforms (Clerk and similar) and error trackers (Sentry and similar) are optional for StoneWave later if volume warrants them. They are not required to run the first live desk and are not line items on this page.
 
 Activation Gate before live customer orders
 Named users, approval trail, edits survive restart, backup/restore drill, known security holes closed, Brian's written yes on data classes and model processors.
@@ -99,7 +94,7 @@ export function normalizeWorkingHistory(value: unknown): WorkingChatTurn[] {
 
 const discountAnswer = `The sample desk already exists because the $1,500 diagnostic built it for this shop. Founding rates credit that work: the live desk is $6,000 instead of the $7,500 list, then $350 a month all-in. Inbox watching, if added later, is $7,500 instead of $12,000 list. This page is not a checkout. Source: Founding rates (prototyped for Supply Pointe)`;
 
-const toolsAnswer = `Proposed tools: Railway for the long-running order desk; this private review page on Vercel / stonewave.life; models (Claude, with OpenAI and Ollama cloud as fallbacks) on Supply Pointe keys after you approve processors in writing; QuickBooks only after the Activation Gate and your approve. Your email stays yours. We do not inherit a vendor SOC 2. Source: Proposed tools (subject to the Gate)`;
+const toolsAnswer = `The first live desk is a hosted private process, models you approve in writing, your QuickBooks, and your email. Named users and backups are in the Activation Gate. Extra identity or error-tracking products are optional for StoneWave later, not something you buy on this page. Source: Proposed tools (subject to the Gate)`;
 
 const timeSavedAnswer = `We will not invent hours saved. Default measure is minutes from a messy order opened to a human-approved draft. Until you time the current path (Day 0), the measurement tab shows pending. After the Gate, the desk can show orders touched, drafts approved, still waiting, and minutes only once both numbers exist. Source: Provable Outcomes measurement`;
 

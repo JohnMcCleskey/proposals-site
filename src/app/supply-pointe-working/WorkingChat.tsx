@@ -10,9 +10,9 @@ type ChatTurn = {
 
 const suggestedQuestions = [
   "Why the founding rate?",
-  "What tools host this?",
   "How do I see time saved?",
   "Could this help me get more customers?",
+  "What stays under human control?",
 ];
 
 export default function WorkingChat() {

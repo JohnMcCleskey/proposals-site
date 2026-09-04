@@ -167,35 +167,6 @@ export default function SupplyPointeWorkingPage() {
             </div>
           </section>
 
-          <section>
-            <h2>Proposed tools we would use to host this</h2>
-            <ul>
-              <li>
-                <strong>Railway</strong> — the long-running order desk (same class as the
-                sample host you already used).
-              </li>
-              <li>
-                <strong>Vercel / stonewave.life</strong> — this private review page only.
-              </li>
-              <li>
-                <strong>Models</strong> — Claude as the trust path, with OpenAI and Ollama
-                cloud as fallbacks, on Supply Pointe-owned keys after you approve processors
-                in writing.
-              </li>
-              <li>
-                <strong>QuickBooks</strong> — create only after you approve, and only after
-                the Activation Gate.
-              </li>
-              <li>
-                <strong>Your email</strong> — stays yours. Watching is the later add-on.
-              </li>
-            </ul>
-            <p>
-              We do not inherit a vendor&apos;s SOC 2. Cloud encryption is not StoneWave
-              bank-grade. The Gate is the honesty check before live customer files.
-            </p>
-          </section>
-
           <section id="paths">
             <h2>Two pieces (additive, not a menu)</h2>
             <div className={styles.tableWrap}>
