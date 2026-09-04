@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import WorkingChat from "./WorkingChat";
 import styles from "../supply-pointe-discovery/proposal.module.css";
 
 export const metadata: Metadata = {
@@ -69,10 +70,10 @@ export default function SupplyPointeWorkingPage() {
         </p>
         <div className={styles.heroFooter}>
           <div>
-            <span>Starting point (founding rate)</span>
-            <strong>$6,000 · then $350 / month all-in</strong>
+            <span>Founding rate (this shop already has a prototype)</span>
+            <strong>$6,000 instead of $7,500 list</strong>
           </div>
-          <a href="#paths">See the two pieces</a>
+          <a href="#discount">See the credit</a>
         </div>
       </section>
 
@@ -124,6 +125,75 @@ export default function SupplyPointeWorkingPage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+          </section>
+
+          <section id="discount">
+            <h2>Why the founding rate</h2>
+            <p>
+              This desk was prototyped on your materials in the $1,500 diagnostic. The
+              founding numbers credit that work. They are not a public coupon.
+            </p>
+            <div className={styles.tableWrap}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Piece</th>
+                    <th>List</th>
+                    <th>Founding</th>
+                    <th>Credit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Desk, live on real orders</td>
+                    <td>$7,500</td>
+                    <td>$6,000</td>
+                    <td>$1,500 — the diagnostic already built the prototype</td>
+                  </tr>
+                  <tr>
+                    <td>Inbox watching (later)</td>
+                    <td>$12,000</td>
+                    <td>$7,500</td>
+                    <td>$4,500 if you add it after the desk is comfortable</td>
+                  </tr>
+                  <tr>
+                    <td>Both</td>
+                    <td>~$19,500</td>
+                    <td>$13,500</td>
+                    <td>Expected landing is still the $6,000 desk first</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <h2>Proposed tools we would use to host this</h2>
+            <ul>
+              <li>
+                <strong>Railway</strong> — the long-running order desk (same class as the
+                sample host you already used).
+              </li>
+              <li>
+                <strong>Vercel / stonewave.life</strong> — this private review page only.
+              </li>
+              <li>
+                <strong>Models</strong> — Claude as the trust path, with OpenAI and Ollama
+                cloud as fallbacks, on Supply Pointe-owned keys after you approve processors
+                in writing.
+              </li>
+              <li>
+                <strong>QuickBooks</strong> — create only after you approve, and only after
+                the Activation Gate.
+              </li>
+              <li>
+                <strong>Your email</strong> — stays yours. Watching is the later add-on.
+              </li>
+            </ul>
+            <p>
+              We do not inherit a vendor&apos;s SOC 2. Cloud encryption is not StoneWave
+              bank-grade. The Gate is the honesty check before live customer files.
+            </p>
           </section>
 
           <section id="paths">
@@ -218,6 +288,37 @@ export default function SupplyPointeWorkingPage() {
             </p>
           </section>
 
+          <section>
+            <h2>Further opportunities (hypotheses, not results)</h2>
+            <p>
+              Once the order KPI is live, the same measurement tab can surface
+              <em> ideas</em> — not promises. Each idea needs its own baseline
+              before any extra-value number is shown. Until then the line stays
+              &quot;not measured.&quot;
+            </p>
+            <ul>
+              <li>
+                Inbox watching / vendor POD as invoice trigger — named add-on,
+                not in the $6,000 desk.
+              </li>
+              <li>
+                Extra users or locations — more seats on the same engine, not a
+                second product.
+              </li>
+              <li>
+                New market capabilities (customer acquisition, meeting
+                scheduling, outbound) — only if you name that pain after the
+                order desk is boring. Separately scoped. This chat will say so
+                rather than invent a projection.
+              </li>
+            </ul>
+            <p>
+              Use the question button on this page to ask those &quot;could this
+              also…&quot; questions. Answers stay inside this review. John
+              confirms anything that would change scope or price.
+            </p>
+          </section>
+
           <section className={styles.note}>
             <h2>Tuesday</h2>
             <p>
@@ -231,7 +332,7 @@ export default function SupplyPointeWorkingPage() {
         <aside className={styles.paymentPanel} aria-label="Next step">
           <p className={styles.panelLabel}>Not a checkout</p>
           <p className={styles.price}>
-            $6,000 <span>founding · then $350 / mo all-in</span>
+            $6,000 <span>founding · $7,500 list · then $350 / mo all-in</span>
           </p>
           <p>
             Review this page. Tuesday we pick a path. Stripe stays off until you write
@@ -246,6 +347,7 @@ export default function SupplyPointeWorkingPage() {
       <footer className={styles.footer}>
         Prepared by StoneWave · Private · Do not index · Scope version 2026-09-04
       </footer>
+      <WorkingChat />
     </main>
   );
 }
