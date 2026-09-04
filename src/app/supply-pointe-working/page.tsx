@@ -70,10 +70,10 @@ export default function SupplyPointeWorkingPage() {
         </p>
         <div className={styles.heroFooter}>
           <div>
-            <span>Founding rate (this shop already has a prototype)</span>
-            <strong>$6,000 instead of $7,500 list</strong>
+            <span>This shop — live desk</span>
+            <strong>$6,000 · then $350 / month all-in</strong>
           </div>
-          <a href="#discount">See the credit</a>
+          <a href="#discount">List vs founding</a>
         </div>
       </section>
 
@@ -128,11 +128,7 @@ export default function SupplyPointeWorkingPage() {
           </section>
 
           <section id="discount">
-            <h2>Why the founding rate</h2>
-            <p>
-              This desk was prototyped on your materials in the $1,500 diagnostic. The
-              founding numbers credit that work. They are not a public coupon.
-            </p>
+            <h2>List and founding</h2>
             <div className={styles.tableWrap}>
               <table>
                 <thead>
@@ -140,7 +136,6 @@ export default function SupplyPointeWorkingPage() {
                     <th>Piece</th>
                     <th>List</th>
                     <th>Founding</th>
-                    <th>Credit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -148,23 +143,24 @@ export default function SupplyPointeWorkingPage() {
                     <td>Desk, live on real orders</td>
                     <td>$7,500</td>
                     <td>$6,000</td>
-                    <td>$1,500 — the diagnostic already built the prototype</td>
                   </tr>
                   <tr>
                     <td>Inbox watching (later)</td>
                     <td>$12,000</td>
                     <td>$7,500</td>
-                    <td>$4,500 if you add it after the desk is comfortable</td>
                   </tr>
                   <tr>
                     <td>Both</td>
-                    <td>~$19,500</td>
+                    <td>$19,500</td>
                     <td>$13,500</td>
-                    <td>Expected landing is still the $6,000 desk first</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <p>
+              Founding rate because the prototype already exists on your materials. The
+              diagnostic is paid and delivered; it isn&apos;t a credit.
+            </p>
           </section>
 
           <section id="paths">
@@ -273,8 +269,8 @@ export default function SupplyPointeWorkingPage() {
                 not in the $6,000 desk.
               </li>
               <li>
-                Extra users or locations — more seats on the same engine, not a
-                second product.
+                Another shop is another desk and another Order Form — separate
+                books, inbox, and Gate. Not a split of this $6,000.
               </li>
               <li>
                 New market capabilities (customer acquisition, meeting
@@ -294,8 +290,9 @@ export default function SupplyPointeWorkingPage() {
             <h2>Tuesday</h2>
             <p>
               Walk the sample desk honestly. Put real timings next to the current path
-              if we have them. Leave with one clear next step on the $6,000 desk
-              versus waiting. Nothing is charged from a link on that call.
+              if we have them. The decision is the $6,000 desk (about 3–4 weeks to a
+              signed Gate). Inbox watching is the named later step — not Tuesday.
+              Nothing is charged from a link on that call.
             </p>
           </section>
         </article>
@@ -303,7 +300,7 @@ export default function SupplyPointeWorkingPage() {
         <aside className={styles.paymentPanel} aria-label="Next step">
           <p className={styles.panelLabel}>Not a checkout</p>
           <p className={styles.price}>
-            $6,000 <span>founding · $7,500 list · then $350 / mo all-in</span>
+            $6,000 <span>this shop · then $350 / mo all-in</span>
           </p>
           <p>
             Review this page. Tuesday we pick a path. Stripe stays off until you write

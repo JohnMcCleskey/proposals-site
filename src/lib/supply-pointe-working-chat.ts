@@ -15,11 +15,11 @@ Purpose
 The $1,500 diagnostic is paid. This page describes what StoneWave would install, host, and maintain: a review-first order desk on Supply Pointe's real orders. Preference on this page is not a contract and not a charge.
 
 Founding rates (prototyped for Supply Pointe)
-The sample desk already exists because the diagnostic built it for this shop. Founding rates credit that work. They are not a public coupon.
+List vs founding only. No credit column. Founding rate because the prototype already exists on your materials. The $1,500 diagnostic is paid and delivered; it is not a credit and is not subtracted from $6,000.
 - Desk, live on real orders: list $7,500, founding $6,000, then $350 / month all-in.
 - Inbox watching add-on (not built yet): list $12,000, founding $7,500, then +$200 / month.
-- Both: list about $19,500, founding $13,500, then $550 / month.
-Expected landing is the $6,000 desk first. Watching later, once the model-assisted flow is comfortable.
+- Both: list $19,500, founding $13,500, then $550 / month.
+Expected landing is the $6,000 desk first. Watching later, once the model-assisted flow is comfortable. Another shop is another Order Form (list $7,500, or that shop's own diagnostic then founding). This $6,000 is not split.
 Monthly is all-in: hosting and model usage inside the fee. Volume band in the Order Form; growth past it needs a written new number.
 Terms: 50% deposit / 50% at signed Activation Gate. Monthly starts at the Gate. Cancel any time on 30 days' notice.
 
@@ -92,7 +92,7 @@ export function normalizeWorkingHistory(value: unknown): WorkingChatTurn[] {
     .slice(-MAX_HISTORY_TURNS);
 }
 
-const discountAnswer = `The sample desk already exists because the $1,500 diagnostic built it for this shop. Founding rates credit that work: the live desk is $6,000 instead of the $7,500 list, then $350 a month all-in. Inbox watching, if added later, is $7,500 instead of $12,000 list. This page is not a checkout. Source: Founding rates (prototyped for Supply Pointe)`;
+const discountAnswer = `Founding rate because the prototype already exists on your materials. The diagnostic is paid and delivered; it isn't a credit. Live desk: list $7,500, founding $6,000, then $350 a month all-in. Watching later: list $12,000, founding $7,500. This page is not a checkout. Source: Founding rates (prototyped for Supply Pointe)`;
 
 const toolsAnswer = `The first live desk is a hosted private process, models you approve in writing, your QuickBooks, and your email. Named users and backups are in the Activation Gate. Extra identity or error-tracking products are optional for StoneWave later, not something you buy on this page. Source: Proposed tools (subject to the Gate)`;
 
