@@ -35,6 +35,13 @@ describe("supply-pointe working chat", () => {
     expect(answer).toContain("not part of this desk");
   });
 
+  it("answers Basecamp notify without Gemini", () => {
+    const answer = getDirectWorkingAnswer("Can you tie in Basecamp notifications?");
+    expect(answer).toContain("+$50");
+    expect(answer).toContain("does not send email");
+    expect(answer).toContain("Source: Founding rates");
+  });
+
   it("does not invent hours saved", () => {
     const answer = getDirectWorkingAnswer("How do I see time saved?");
     expect(answer).toContain("will not invent hours saved");

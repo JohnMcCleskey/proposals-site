@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 const install = [
   "Named users for Brian and your admin (the shared sample code does not go live).",
   "The review desk on your orders: intake, source beside draft, mill PO and packing slip packets.",
-  "Human review forever. Nothing emails a customer or vendor. Nothing writes QuickBooks until you say so at the Activation Gate.",
+  "Human review forever. Nothing emails a customer or vendor.",
+  "QuickBooks read: your customer and vendor records (bill-to, ship-to, tax) inform the desk after you approve the connection. Prefill is still a proposal Brittany confirms.",
+  "QuickBooks write: nothing creates a PO, bill, invoice, or payment in QuickBooks until you say so at the Activation Gate.",
   "Model-assisted fill-from-source with confirms, on your accounts once live — or the desk runs manual-only if you prefer.",
 ];
 
@@ -24,15 +26,16 @@ const host = [
 const maintain = [
   "Fixes, monitoring, and incremental rule improvements inside the monthly.",
   "Cancel any time on 30 days' notice after the Gate.",
+  "Optional Basecamp notify: after Review completed, a to-do on Brian's phone with order context and a link back to the desk. +$50 / month when your Basecamp project is connected. Completing the to-do does not send email or write QuickBooks.",
   "Inbox watching is a named later add-on, not bundled into the first live desk.",
-  "Vendor POD / bills as an invoice trigger is in that later watching path — it is not on the sample desk today.",
+  "Vendor POD / bills as an invoice trigger is in that later watching path. It is not on the sample desk today.",
 ];
 
 const measure = [
   {
     name: "Minutes per order",
     how: "Stopwatch on your current path (Day 0), then desk timestamps from open to Review completed.",
-    now: "Pending — collect on or before Tuesday.",
+    now: "Pending — we will not invent hours saved.",
   },
   {
     name: "Fields re-keyed",
@@ -180,13 +183,13 @@ export default function SupplyPointeWorkingPage() {
                     <td>The desk, live on real orders</td>
                     <td>$6,000</td>
                     <td>$350</td>
-                    <td>Hosted private desk, two users, packets, human review, model-assist with confirms when you want it. Payments stay in QuickBooks.</td>
+                    <td>Hosted private desk, two users, packets, human review, QuickBooks read for customer/vendor/tax, model-assist with confirms when you want it. Payments stay in QuickBooks.</td>
                   </tr>
                   <tr>
                     <td>Inbox watching — later add-on</td>
                     <td>$7,500</td>
                     <td>+$200</td>
-                    <td>Watching + QuickBooks create only after Brian approves. POD/bills trigger lives here. Not built on the sample desk.</td>
+                    <td>Inbox watching later. QuickBooks create-after-approve is a Gate item on the live desk, not this add-on. POD/bills trigger lives here. Not built on the sample desk.</td>
                   </tr>
                   <tr>
                     <td>Both</td>
@@ -199,8 +202,9 @@ export default function SupplyPointeWorkingPage() {
             </div>
             <p>
               50% deposit / 50% at a signed Activation Gate. Monthly starts at the Gate.
-              This page is a preference to refine on Tuesday — not a contract and not a
-              charge.
+              Optional Basecamp notify is +$50 / month when connected, not part of the
+              $3,000 deposit. This page is for you to review before Wednesday 11:00.
+              It is not a contract and not a charge.
             </p>
           </section>
 
@@ -287,12 +291,12 @@ export default function SupplyPointeWorkingPage() {
           </section>
 
           <section className={styles.note}>
-            <h2>Tuesday</h2>
+            <h2>Wednesday 11:00</h2>
             <p>
-              Walk the sample desk honestly. Put real timings next to the current path
-              if we have them. The decision is the $6,000 desk (about 3–4 weeks to a
-              signed Gate). Inbox watching is the named later step — not Tuesday.
-              Nothing is charged from a link on that call.
+              Fifteen minutes on this page: the $6,000 desk, QuickBooks read vs write,
+              and whether you want the Basecamp ping. Inbox watching stays later.
+              Nothing is charged from a link on that call. Stripe stays off until you
+              write yes.
             </p>
           </section>
         </article>
@@ -303,17 +307,17 @@ export default function SupplyPointeWorkingPage() {
             $6,000 <span>this shop · then $350 / mo all-in</span>
           </p>
           <p>
-            Review this page. Tuesday we pick a path. Stripe stays off until you write
+            Review this page before Wednesday 11:00. Stripe stays off until you write
             yes on a record.
           </p>
           <p className={styles.formNote}>
-            Unlisted URL · noindex · scope 2026-09-04 · matches the Sep 3 terms sheet
+            Unlisted URL · noindex · scope 2026-09-08 · matches the locked terms sheet
           </p>
         </aside>
       </div>
 
       <footer className={styles.footer}>
-        Prepared by StoneWave · Private · Do not index · Scope version 2026-09-04
+        Prepared by StoneWave · Private · Do not index · Scope version 2026-09-08
       </footer>
       <WorkingChat />
     </main>

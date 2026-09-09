@@ -9,7 +9,7 @@ const MAX_HISTORY_TURN_CHARS = 1_000;
 
 const approvedWorkingContext = `
 Supply Pointe hosted desk — private review
-Scope version: 2026-09-04
+Scope version: 2026-09-08
 
 Purpose
 The $1,500 diagnostic is paid. This page describes what StoneWave would install, host, and maintain: a review-first order desk on Supply Pointe's real orders. Preference on this page is not a contract and not a charge.
@@ -17,19 +17,20 @@ The $1,500 diagnostic is paid. This page describes what StoneWave would install,
 Founding rates (prototyped for Supply Pointe)
 List vs founding only. No credit column. Founding rate because the prototype already exists on your materials. The $1,500 diagnostic is paid and delivered; it is not a credit and is not subtracted from $6,000.
 - Desk, live on real orders: list $7,500, founding $6,000, then $350 / month all-in.
+- Optional Basecamp notify: +$50 / month when their Basecamp project is connected. After Review completed, a to-do on Brian's phone with order context. Completing the to-do does not send email or write QuickBooks.
 - Inbox watching add-on (not built yet): list $12,000, founding $7,500, then +$200 / month.
-- Both: list $19,500, founding $13,500, then $550 / month.
+- Both desk + watching: list $19,500, founding $13,500, then $550 / month.
 Expected landing is the $6,000 desk first. Watching later, once the model-assisted flow is comfortable. Another shop is another Order Form (list $7,500, or that shop's own diagnostic then founding). This $6,000 is not split.
 Monthly is all-in: hosting and model usage inside the fee. Volume band in the Order Form; growth past it needs a written new number.
 Terms: 50% deposit / 50% at signed Activation Gate. Monthly starts at the Gate. Cancel any time on 30 days' notice.
 
 Install, host, maintain
-Install: named users for Brian and the admin; review desk (intake, source beside draft, mill PO and packing slip); human review forever; model-assist with confirms or manual-only if preferred.
+Install: named users for Brian and the admin; review desk (intake, source beside draft, mill PO and packing slip); human review forever; QuickBooks read of customer/vendor/tax after they approve the connection; QuickBooks write only at the Activation Gate; model-assist with confirms or manual-only if preferred.
 Host: private hosted desk; backups and a dated restore drill before live files; security holes from the sample desk closed before the Gate.
 Maintain: fixes, monitoring, rule improvements inside the monthly.
 
 Proposed tools (subject to the Gate)
-The live desk is a hosted private process plus models you approve in writing, plus your QuickBooks and your email. Named users and backups are part of the Activation Gate, not extra products. Identity platforms (Clerk and similar) and error trackers (Sentry and similar) are optional for StoneWave later if volume warrants them. They are not required to run the first live desk and are not line items on this page.
+The live desk is a hosted private process plus models you approve in writing, plus your QuickBooks (read first) and your email. Named users and backups are part of the Activation Gate, not extra products. Identity platforms (Clerk and similar) and error trackers (Sentry and similar) are optional for StoneWave later if volume warrants them. They are not required to run the first live desk and are not line items on this page.
 
 Activation Gate before live customer orders
 Named users, approval trail, edits survive restart, backup/restore drill, known security holes closed, Brian's written yes on data classes and model processors.
@@ -47,10 +48,10 @@ These are ideas to discuss after the order-desk KPI is live. They are not includ
 - New market capabilities (customer acquisition, meeting scheduling, outbound campaigns) only if the order KPI is live and they name a new measured pain. Those would be a separately scoped slice. This desk does not acquire customers or book meetings.
 
 Human control
-Nothing emails a customer or vendor from the desk. Nothing writes QuickBooks until Brian says so at the Gate. Payments stay in QuickBooks.
+People stay in control. Nothing emails a customer or vendor from the desk. QuickBooks customer and vendor records can inform the desk after they approve the connection. Nothing writes a PO, bill, invoice, or payment to QuickBooks until Brian says so at the Activation Gate. Payments stay in QuickBooks.
 
-Tuesday
-Walk the sample desk. Put real timings next to the current path if collected. Leave with one next step on the $6,000 desk versus waiting. No Stripe on that call.
+Wednesday 11:00
+Fifteen minutes on this page. Decision is the $6,000 desk, QuickBooks read vs write, and optional Basecamp notify +$50 / month. Inbox watching is later. No Stripe on that call. This page is not a checkout.
 `;
 
 export type WorkingChatTurn = {
@@ -102,7 +103,7 @@ const moreCustomersAnswer = `Getting additional customers is not part of the $6,
 
 const meetingsAnswer = `Scheduling meetings is not part of this desk. The desk prepares order drafts for human review. Calendar or outreach would be a later, separately scoped slice after the order work is proven. Source: Further opportunities (hypotheses, not results)`;
 
-const humanAnswer = `People stay in control. Nothing emails a customer or vendor from the desk. Nothing writes QuickBooks until you say so at the Activation Gate. Payments stay in QuickBooks. Source: Human control`;
+const humanAnswer = `People stay in control. Nothing emails a customer or vendor from the desk. QuickBooks can be read for customer and vendor records after you approve the connection. Nothing writes a PO, bill, invoice, or payment to QuickBooks until you say so at the Activation Gate. Payments stay in QuickBooks. Source: Human control`;
 
 export function getDirectWorkingAnswer(question: string): string | null {
   if (/\b(discount|founding|why.{0,40}(cheaper|less|rate)|prototyp)\b/i.test(question)) {
@@ -119,6 +120,9 @@ export function getDirectWorkingAnswer(question: string): string | null {
   }
   if (/\b(schedule meetings|scheduling meetings|book a (call|meeting)|calendar invite)/i.test(question)) {
     return meetingsAnswer;
+  }
+  if (/\b(basecamp|to-?do|notification)\b/i.test(question)) {
+    return `Optional +$50 / month when your Basecamp project is connected. After Review completed, a to-do lands on Brian's phone with order context and a link back to the desk. Completing the to-do does not send email or write QuickBooks. Inbox watching is a later add-on, not this rider. Source: Founding rates (prototyped for Supply Pointe)`;
   }
   if (/\b(human control|who.{0,40}approv|send.{0,20}customer|quickbooks)\b/i.test(question)) {
     return humanAnswer;
